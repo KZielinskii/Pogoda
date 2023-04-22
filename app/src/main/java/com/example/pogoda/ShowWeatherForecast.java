@@ -26,14 +26,14 @@ public class ShowWeatherForecast extends DialogFragment {
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.weather_forecast_window, null);
-        EditText valueProperty = ll.findViewById(R.id.editText);
+        EditText city = ll.findViewById(R.id.editText);
 
 
-        valueProperty.setText(String.valueOf(locality.getName()));
+        city.setText(String.valueOf(locality.getCurrentTemperature()));
 
         builder.setView(ll)
                 .setPositiveButton("Wejdź", (dialog, id) -> {
-                    String value = valueProperty.getText().toString();
+                    String value = city.getText().toString();
                     (localitiesListAddapter.getLocalities().get(position)).getCurrentTemperature();
                 })
                 .setNegativeButton("Anuluj", (dialog, id) -> ShowWeatherForecast.this.getDialog().cancel());

@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:text=""
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:paddingStart="10dp"/>
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:text=""
-        android:textSize="18sp"
+        android:textSize="24sp"
         />
 
     <ImageView
@@ -36,7 +36,6 @@
         android:layout_height="match_parent"
         android:layout_weight="0.4"
         android:src="@mipmap/ic_cloud"
-        android:contentDescription="@string/button"
         android:text=""
         android:paddingEnd="10dp"/>
 

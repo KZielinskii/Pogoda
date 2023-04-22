@@ -35,12 +35,13 @@ public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
             itemView = LayoutInflater.from(getContext()).inflate(R.layout.locality_list_item, parent, false);
         }
 
-        Locality locality = getItem(position);
+        Locality locality = localities.get(position);
+
         TextView nameView = itemView.findViewById(R.id.paramName);
         TextView parmView = itemView.findViewById(R.id.paramValue);
+
         nameView.setText(locality.getName());
         parmView.setText(String.valueOf(locality.getCurrentTemperature()));
-
         LinearLayout listItem = itemView.findViewById(R.id.list_item);
         listItem.setOnClickListener(view -> {
             ShowWeatherForecast dialogFragment = new ShowWeatherForecast(locality, position, this);
@@ -48,11 +49,11 @@ public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
         });
 
         return itemView;
-
     }
 
     public ArrayList<Locality> getLocalities() {
         return localities;
     }
-
 }
+
+

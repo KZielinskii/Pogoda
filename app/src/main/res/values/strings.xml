@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Pogoda</string>
-    <string name="button">Settings</string>
-    <string name="location_name">Miejscowość:</string>
+    <string name="locations">Miejscowości:</string>
+    <string name="location">Miejscowość:</string>
+    <string name="add">Dodaj miejscowość:</string>
+    <string name="search_title">Pogoda</string>
 </resources>
