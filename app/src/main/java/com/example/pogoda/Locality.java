@@ -1,8 +1,8 @@
 package com.example.pogoda;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.TextView;
+import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 public class Locality {
 
@@ -24,23 +25,24 @@ public class Locality {
     public Locality(String name, Context context) {
         this.name = name;
         this.context = context;
-        updateWeather(name);
+        readFromFile();
+        updateWeather();
     }
 
     public String getName() {
         return name;
     }
 
-    public double getCurrentTemperature()
-    {
+    public double getCurrentTemperature() {
         return currentTemperature;
     }
 
-    public void updateWeather(String location)
-    {
+    public void updateWeather() {
+
         String start = "https://api.openweathermap.org/data/2.5/weather?q=";
         String end = "&appid=bc170ec055ab5eb458be802e3683e686&units=metric";
-        String url = start+location+end;
+        String url = start + name + end;
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
@@ -53,15 +55,34 @@ public class Locality {
                         isSunny = weatherDescription.contains("clear");
                         isRaining = weatherDescription.contains("rain");
 
+                        saveToFile();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },
                 error -> {
-                    error.printStackTrace();
+                    readFromFile();
+                    Toast.makeText(context, "Dane mogą być nieaktualne.\n (Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
                 });
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(jsonObjectRequest);
+    }
+
+    private void readFromFile() {
+        SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
+        String zapisanyTekst = preferences.getString(name, "");
+        String[] dane = zapisanyTekst.split(",");
+
+        currentTemperature = Double.parseDouble(dane[0]);
+        isSunny = Boolean.parseBoolean(dane[1]);
+        isRaining = Boolean.parseBoolean(dane[2]);
+    }
+
+    private void saveToFile() {
+        SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(name, currentTemperature + "," + isSunny + "," + isRaining);
+        editor.apply();
     }
 }
