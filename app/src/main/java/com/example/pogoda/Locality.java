@@ -71,12 +71,15 @@ public class Locality {
 
     private void readFromFile() {
         SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
-        String zapisanyTekst = preferences.getString(name, "");
-        String[] dane = zapisanyTekst.split(",");
+        String saved = preferences.getString(name, "");
+        String[] dane = saved.split(",");
 
-        currentTemperature = Double.parseDouble(dane[0]);
-        isSunny = Boolean.parseBoolean(dane[1]);
-        isRaining = Boolean.parseBoolean(dane[2]);
+        if(!saved.equals(""))
+        {
+            currentTemperature = Double.parseDouble(dane[0]);
+            isSunny = Boolean.parseBoolean(dane[1]);
+            isRaining = Boolean.parseBoolean(dane[2]);
+        }
     }
 
     private void saveToFile() {
