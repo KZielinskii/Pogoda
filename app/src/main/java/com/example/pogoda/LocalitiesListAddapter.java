@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
@@ -44,8 +45,11 @@ public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
         parmView.setText(String.valueOf(locality.getCurrentTemperature()));
         LinearLayout listItem = itemView.findViewById(R.id.list_item);
         listItem.setOnClickListener(view -> {
-            ShowWeatherForecast dialogFragment = new ShowWeatherForecast(locality, position, this);
-            dialogFragment.show(fragmentManager, "show_weather_forecast_dialog");
+            WeatherForecast newFragment = new WeatherForecast();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            //transaction.replace(R.id.fragment_container, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
 
         return itemView;

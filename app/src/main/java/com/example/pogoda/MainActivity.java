@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity{
         ImageButton addLocalities = findViewById(R.id.imageButton);
 
         addLocalities.setOnClickListener(view -> {
-            ShowAddWindow dialogFragment = new ShowAddWindow(this, localities, getApplicationContext());
+            AddLocalityWindow dialogFragment = new AddLocalityWindow(localities, getApplicationContext());
             dialogFragment.show(getSupportFragmentManager(), "show_add_window_dialog");
         });
     }
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity{
             TextView temp =  itemView.findViewById(R.id.paramValue);
 
             updateTemperature(temp, i);
-
         }
     }
 

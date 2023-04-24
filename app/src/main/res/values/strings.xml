@@ -5,4 +5,5 @@
     <string name="add">Dodaj miejscowość:</string>
     <string name="search_title">Pogoda</string>
     <string name="refresh">Odśwież</string>
+    <string name="temperature">Temperatura:</string>
 </resources>
