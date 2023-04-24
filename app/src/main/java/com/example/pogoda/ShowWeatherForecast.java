@@ -32,7 +32,7 @@ public class ShowWeatherForecast extends DialogFragment {
         city.setText(String.valueOf(locality.getCurrentTemperature()));
 
         builder.setView(ll)
-                .setPositiveButton("Wejdź", (dialog, id) -> {
+                .setPositiveButton("Zobacz więcej...", (dialog, id) -> {
                     String value = city.getText().toString();
                     (localitiesListAddapter.getLocalities().get(position)).getCurrentTemperature();
                 })

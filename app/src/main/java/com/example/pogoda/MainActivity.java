@@ -3,7 +3,10 @@ package com.example.pogoda;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -23,10 +27,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        localities=new ArrayList<>();
-        localities.add(new Locality("Warszawa",getApplicationContext()));
-        localities.add(new Locality("Łódź",getApplicationContext()));
-        localities.add(new Locality("Gdańsk",getApplicationContext()));
+        localities = new ArrayList<>();
+        addSavedLocalities();
 
         localitiesListAddapter = new LocalitiesListAddapter(this, localities, getSupportFragmentManager());
         ListView listView = findViewById(R.id.localities_list);
@@ -38,6 +40,15 @@ public class MainActivity extends AppCompatActivity{
             ShowAddWindow dialogFragment = new ShowAddWindow(this, localities, getApplicationContext());
             dialogFragment.show(getSupportFragmentManager(), "show_add_window_dialog");
         });
+    }
+
+    private void addSavedLocalities()
+    {
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
+        Map<String, ?> allEntries = preferences.getAll();
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            localities.add(new Locality( entry.getKey(), getApplicationContext()));
+        }
     }
 
     @Override
