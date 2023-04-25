@@ -32,13 +32,16 @@ public class WeatherForecast extends AppCompatActivity{
 
         localityName = getIntent().getStringExtra("locality_name");
         int itemIndex = getIntent().getIntExtra("item_index", -1);
+        int temperature = getIntent().getIntExtra("temperature",0);
+        boolean isSunny = getIntent().getBooleanExtra("is_sunny",false);
+        boolean isRaining = getIntent().getBooleanExtra("is_raining",false);
 
         Button button1 = findViewById(R.id.firstFragment);
         Button button2 = findViewById(R.id.secondFragment);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        FirstFragment firstFragment = new FirstFragment(localityName, itemIndex);
+        FirstFragment firstFragment = new FirstFragment(localityName, itemIndex, temperature, isSunny, isRaining);
         fragmentTransaction.replace(R.id.flFragment, firstFragment);
         fragmentTransaction.commit();
 
@@ -47,7 +50,7 @@ public class WeatherForecast extends AppCompatActivity{
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                FirstFragment firstFragment = new FirstFragment(localityName, itemIndex);
+                FirstFragment firstFragment = new FirstFragment(localityName, itemIndex, temperature, isSunny, isRaining);
                 fragmentTransaction.replace(R.id.flFragment, firstFragment);
                 fragmentTransaction.commit();
             }

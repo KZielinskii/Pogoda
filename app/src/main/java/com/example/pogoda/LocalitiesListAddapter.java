@@ -19,7 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.ArrayList;
 
 public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
-    private ArrayList<Locality> localities;
+    private static ArrayList<Locality> localities;
     private Context context;
 
     public LocalitiesListAddapter(Context context, ArrayList<Locality> localities) {
@@ -53,8 +53,8 @@ public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
             intent.putExtra("item_index", position);
             intent.putExtra("locality_name", locality.getName());
             intent.putExtra("temperature", locality.getCurrentTemperature());
-            intent.putExtra("locality_name", locality.getName());
-            intent.putExtra("locality_name", locality.getName());
+            intent.putExtra("is_sunny", locality.getIsSunny());
+            intent.putExtra("is_raining", locality.getIsRaining());
 
             getContext().startActivity(intent);
         });
@@ -68,7 +68,7 @@ public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
         else if(locality.getIsRaining())icon.setImageResource(R.mipmap.ic_rain);
         else icon.setImageResource(R.mipmap.ic_cloud);
     }
-    public ArrayList<Locality> getLocalities() {
+    public static ArrayList<Locality> getLocalities() {
         return localities;
     }
 }
