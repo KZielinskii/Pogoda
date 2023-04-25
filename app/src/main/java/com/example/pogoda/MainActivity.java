@@ -20,12 +20,14 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity{
 
-    private ArrayList<Locality> localities;
+    private static ArrayList<Locality> localities;
     private LocalitiesListAddapter localitiesListAddapter;
+    private ListView listView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        listView = findViewById(R.id.localities_list);
 
         localities = new ArrayList<>();
         addSavedLocalities();
@@ -70,8 +72,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void updateWeather()
     {
-        ListView listView = findViewById(R.id.localities_list);
-
+        localities = LocalitiesListAddapter.getLocalities();
         for (int i = 0; i < localities.size(); i++) {
             localities.get(i).updateWeather();
             View itemView = listView.getChildAt(i);

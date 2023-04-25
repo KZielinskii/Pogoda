@@ -99,7 +99,7 @@ public class Locality {
         editor.apply();
     }
 
-    public void deleteFromPreferences(String name) {
+    public void deleteFromPreferences() {
         SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.remove(name);

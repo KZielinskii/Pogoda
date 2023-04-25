@@ -46,6 +46,7 @@ public class FirstFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ArrayList<Locality> localities = LocalitiesListAddapter.getLocalities();
+                LocalitiesListAddapter.getLocalities().get(index).deleteFromPreferences();
                 localities.remove(index);
 
                 Activity activity = getActivity();
