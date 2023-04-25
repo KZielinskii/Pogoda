@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity{
 
-    private  ArrayList<Locality> localities;
+    private ArrayList<Locality> localities;
     private LocalitiesListAddapter localitiesListAddapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

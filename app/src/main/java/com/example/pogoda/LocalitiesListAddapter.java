@@ -1,6 +1,7 @@
 package com.example.pogoda;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -45,11 +46,9 @@ public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
         parmView.setText(String.valueOf(locality.getCurrentTemperature()));
         LinearLayout listItem = itemView.findViewById(R.id.list_item);
         listItem.setOnClickListener(view -> {
-            WeatherForecast newFragment = new WeatherForecast();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            //transaction.replace(R.id.fragment_container, newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            Intent intent = new Intent(getContext(), WeatherForecast.class);
+            intent.putExtra("locality_position", position);
+            getContext().startActivity(intent);
         });
 
         return itemView;
