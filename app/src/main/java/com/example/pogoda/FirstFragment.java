@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,8 @@ public class FirstFragment extends Fragment {
                 ArrayList<Locality> localities = LocalitiesListAddapter.getLocalities();
                 LocalitiesListAddapter.getLocalities().get(index).deleteFromPreferences();
                 localities.remove(index);
+
+                MainActivity.localitiesListAddapter.notifyDataSetChanged();
 
                 Activity activity = getActivity();
                 if (activity != null) {

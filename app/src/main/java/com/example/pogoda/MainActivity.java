@@ -21,7 +21,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity{
 
     private static ArrayList<Locality> localities;
-    private LocalitiesListAddapter localitiesListAddapter;
+    public static LocalitiesListAddapter localitiesListAddapter;
     private ListView listView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity{
             updateTemperature(temp, i);
             updateIcon(icon,i);
         }
+        localitiesListAddapter.notifyDataSetChanged();
     }
 
     private void updateIcon(ImageView icon, int index) {

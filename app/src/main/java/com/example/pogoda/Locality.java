@@ -22,10 +22,12 @@ public class Locality {
     private int currentTemperature;
     private boolean isSunny;
     private boolean isRaining;
+    private boolean flag;
 
     public Locality(String name, Context context) {
         this.name = name;
         this.context = context;
+        this.flag = false;
         readFromPreferences();
         updateWeather();
     }
@@ -39,6 +41,7 @@ public class Locality {
     }
     public boolean getIsSunny(){return isSunny;}
     public boolean getIsRaining(){return isRaining;}
+    public boolean getFlag(){return flag;}
 
     public void updateWeather() {
 
@@ -58,7 +61,10 @@ public class Locality {
                         isSunny = weatherDescription.contains("clear");
                         isRaining = weatherDescription.contains("rain");
 
+                        flag = true;
+
                         saveToPreferences();
+                        MainActivity.localitiesListAddapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -69,6 +75,8 @@ public class Locality {
                         Toast.makeText(context, "Dane mogą być nieaktualne.\n (Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
                     } else if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
                         Toast.makeText(context, "Podano niepoprawną nazwę lokalizacji!", Toast.LENGTH_SHORT).show();
+                        LocalitiesListAddapter.getLocalities().remove(this);
+                        MainActivity.localitiesListAddapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(context, "Wystąpił błąd: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
