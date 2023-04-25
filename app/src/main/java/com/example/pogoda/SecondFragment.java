@@ -11,6 +11,11 @@ import androidx.fragment.app.Fragment;
 
 public class SecondFragment extends Fragment {
 
+    private String localityName;
+
+    public SecondFragment(String name) {
+        this.localityName = name;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

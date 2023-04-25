@@ -1,5 +1,7 @@
 package com.example.pogoda;
 
+import static java.sql.Types.NULL;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -22,18 +24,21 @@ import java.util.Map;
 
 public class WeatherForecast extends AppCompatActivity{
 
-    private Button button1;
-    private Button button2;
+    private String localityName;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        button1 = findViewById(R.id.firstFragment);
-        button2 = findViewById(R.id.secondFragment);
+
+        localityName = getIntent().getStringExtra("locality_name");
+
+        Button button1 = findViewById(R.id.firstFragment);
+        Button button2 = findViewById(R.id.secondFragment);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.flFragment, new FirstFragment());
+        FirstFragment firstFragment = new FirstFragment(localityName);
+        fragmentTransaction.replace(R.id.flFragment, firstFragment);
         fragmentTransaction.commit();
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +46,8 @@ public class WeatherForecast extends AppCompatActivity{
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.flFragment, new FirstFragment());
+                FirstFragment firstFragment = new FirstFragment(localityName);
+                fragmentTransaction.replace(R.id.flFragment, firstFragment);
                 fragmentTransaction.commit();
             }
         });
@@ -51,7 +57,8 @@ public class WeatherForecast extends AppCompatActivity{
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.flFragment, new SecondFragment());
+                SecondFragment secondFragment = new SecondFragment(localityName);
+                fragmentTransaction.replace(R.id.flFragment, secondFragment);
                 fragmentTransaction.commit();
             }
         });
