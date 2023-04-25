@@ -15,20 +15,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 
 public class Locality {
     private Context context;
     private final String name;
-    private double currentTemperature;
+    private int currentTemperature;
     private boolean isSunny;
     private boolean isRaining;
 
     public Locality(String name, Context context) {
         this.name = name;
         this.context = context;
-        readFromFile();
+        readFromPreferences();
         updateWeather();
     }
 
@@ -36,9 +34,11 @@ public class Locality {
         return name;
     }
 
-    public double getCurrentTemperature() {
+    public int getCurrentTemperature() {
         return currentTemperature;
     }
+    public boolean getIsSunny(){return isSunny;}
+    public boolean getIsRaining(){return isRaining;}
 
     public void updateWeather() {
 
@@ -50,7 +50,7 @@ public class Locality {
                 response -> {
                     try {
                         JSONObject main = response.getJSONObject("main");
-                        currentTemperature = main.getDouble("temp");
+                        currentTemperature = main.getInt("temp");
 
                         JSONArray weather = response.getJSONArray("weather");
                         String weatherDescription = weather.getJSONObject(0).getString("description");
@@ -58,44 +58,51 @@ public class Locality {
                         isSunny = weatherDescription.contains("clear");
                         isRaining = weatherDescription.contains("rain");
 
-                        saveToFile();
+                        saveToPreferences();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },
                 error -> {
                     if (error instanceof NetworkError || error instanceof NoConnectionError) {
-                        readFromFile();
+                        readFromPreferences();
                         Toast.makeText(context, "Dane mogą być nieaktualne.\n (Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
                     } else if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
                         Toast.makeText(context, "Podano niepoprawną nazwę lokalizacji!", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(context, "Wystąpił błąd: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                    readFromFile();
+                    readFromPreferences();
                 });
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void readFromFile() {
+    private void readFromPreferences() {
         SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
         String saved = preferences.getString(name, "");
         String[] dane = saved.split(",");
 
         if(!saved.equals(""))
         {
-            currentTemperature = Double.parseDouble(dane[0]);
+            currentTemperature = Double.valueOf(Double.parseDouble(dane[0])).intValue();
             isSunny = Boolean.parseBoolean(dane[1]);
             isRaining = Boolean.parseBoolean(dane[2]);
         }
     }
 
-    private void saveToFile() {
+    private void saveToPreferences() {
         SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(name, currentTemperature + "," + isSunny + "," + isRaining);
+        editor.apply();
+    }
+
+    public void deleteFromPreferences(String name) {
+        SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(name);
         editor.apply();
     }
 }

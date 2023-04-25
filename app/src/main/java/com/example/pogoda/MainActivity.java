@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity{
         localities = new ArrayList<>();
         addSavedLocalities();
 
-        localitiesListAddapter = new LocalitiesListAddapter(this, localities, getSupportFragmentManager());
+        localitiesListAddapter = new LocalitiesListAddapter(this, localities);
         ListView listView = findViewById(R.id.localities_list);
         listView.setAdapter(localitiesListAddapter);
 
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity{
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
             updateWeather();
-            Toast.makeText(this, "Odświeżono ekran.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Odświeżono dane.", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -75,16 +76,23 @@ public class MainActivity extends AppCompatActivity{
             localities.get(i).updateWeather();
             View itemView = listView.getChildAt(i);
             TextView temp =  itemView.findViewById(R.id.paramValue);
-
+            ImageView icon = itemView.findViewById(R.id.weather_icon);
             updateTemperature(temp, i);
+            updateIcon(icon,i);
         }
+    }
+
+    private void updateIcon(ImageView icon, int index) {
+        Locality locality = localities.get(index);
+        if(locality.getIsSunny())icon.setImageResource(R.mipmap.ic_sun);
+        else if(locality.getIsRaining())icon.setImageResource(R.mipmap.ic_rain);
+        else icon.setImageResource(R.mipmap.ic_cloud);
     }
 
     private void updateTemperature(TextView textView, int index)
     {
         Locality locality = localities.get(index);
-        double temp = locality.getCurrentTemperature();
-        textView.setText(""+temp);
+        textView.setText(locality.getCurrentTemperature()+" ℃");
     }
 }
 

@@ -31,13 +31,14 @@ public class WeatherForecast extends AppCompatActivity{
         setContentView(R.layout.activity_details);
 
         localityName = getIntent().getStringExtra("locality_name");
+        int itemIndex = getIntent().getIntExtra("item_index", -1);
 
         Button button1 = findViewById(R.id.firstFragment);
         Button button2 = findViewById(R.id.secondFragment);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        FirstFragment firstFragment = new FirstFragment(localityName);
+        FirstFragment firstFragment = new FirstFragment(localityName, itemIndex);
         fragmentTransaction.replace(R.id.flFragment, firstFragment);
         fragmentTransaction.commit();
 
@@ -46,7 +47,7 @@ public class WeatherForecast extends AppCompatActivity{
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                FirstFragment firstFragment = new FirstFragment(localityName);
+                FirstFragment firstFragment = new FirstFragment(localityName, itemIndex);
                 fragmentTransaction.replace(R.id.flFragment, firstFragment);
                 fragmentTransaction.commit();
             }

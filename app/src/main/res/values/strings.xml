@@ -11,4 +11,5 @@
     <string name="localityName">Nazwa miejscowości:</string>
     <string name="coordinates">Współrzędne geograficzne:</string>
     <string name="pressure">Ciśnienie:</string>
+    <string name="delete">Usuń</string>
 </resources>
