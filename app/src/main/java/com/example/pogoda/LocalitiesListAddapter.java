@@ -47,7 +47,7 @@ public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
 
         LinearLayout listItem = itemView.findViewById(R.id.list_item);
         listItem.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(), WeatherForecast.class);
+            Intent intent = new Intent(getContext(), WeatherForecastActivity.class);
             intent.putExtra("item_index", position);
             intent.putExtra("locality_name", locality.getName());
             intent.putExtra("temperature", locality.getCurrentTemperature());

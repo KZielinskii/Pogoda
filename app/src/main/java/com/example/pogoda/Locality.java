@@ -5,10 +5,11 @@ import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -56,6 +57,26 @@ public class Locality {
     public int getWindDegree() {return windDegree;}
     public int getWindSpeed() {return windSpeed;}
 
+    //TODO Tutaj przekazać dane do DaysFragment
+    /*
+    StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        JSONArray jsonArray = jsonObject.getJSONArray("daily");
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject dayObject = jsonArray.getJSONObject(i);
+                            long date = dayObject.getLong("dt");
+                            int temperature = dayObject.getJSONObject("temp").getInt("day");
+                            String weatherDescription = dayObject.getJSONArray("weather").getJSONObject(0).getString("description");
+
+                            Day newDay = new Day("Poniedziałek", temperature, R.mipmap.ic_cloud);
+                            adapter.add(newDay);
+                            adapter.notifyDataSetChanged();
+*/
     public void updateWeather() {
 
         String start = "https://api.openweathermap.org/data/2.5/weather?q=";
@@ -84,7 +105,6 @@ public class Locality {
 
                         isSunny = weatherDescription.contains("clear");
                         isRaining = weatherDescription.contains("rain");
-                        
 
                         saveToPreferences();
                         MainActivity.localitiesListAddapter.notifyDataSetChanged();

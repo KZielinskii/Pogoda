@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:layout_weight="0.25"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/dayName"
+        android:gravity="start|center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text=""
+        android:textSize="24sp"
+        android:paddingStart="10dp"/>
+
+    <TextView
+        android:id="@+id/dayTemp"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text=""
+        android:textSize="24sp"
+        />
+
+    <ImageView
+        android:id="@+id/weather_icon"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+        android:src="@mipmap/ic_cloud"
+        android:text=""
+        android:paddingEnd="10dp"/>
+
+</LinearLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".WeatherForecast">
+    tools:context=".WeatherForecastActivity">
 
     <Button
         android:id="@+id/firstFragment"
@@ -35,7 +35,8 @@
         android:id="@+id/thirdFragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Fragment 3"
+        android:text="@string/upcoming_days"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/secondFragment"

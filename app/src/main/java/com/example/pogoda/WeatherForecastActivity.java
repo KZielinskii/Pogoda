@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class WeatherForecast extends AppCompatActivity{
+public class WeatherForecastActivity extends AppCompatActivity{
 
     private String localityName;
     @Override
@@ -31,6 +31,7 @@ public class WeatherForecast extends AppCompatActivity{
 
         Button button1 = findViewById(R.id.firstFragment);
         Button button2 = findViewById(R.id.secondFragment);
+        Button button3 = findViewById(R.id.thirdFragment);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -56,6 +57,17 @@ public class WeatherForecast extends AppCompatActivity{
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 WindFragment secondFragment = new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree);
                 fragmentTransaction.replace(R.id.flFragment, secondFragment);
+                fragmentTransaction.commit();
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                DaysFragment thirdFragment = new DaysFragment(localityName);
+                fragmentTransaction.replace(R.id.flFragment, thirdFragment);
                 fragmentTransaction.commit();
             }
         });
