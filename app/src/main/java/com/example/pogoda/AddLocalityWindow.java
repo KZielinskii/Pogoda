@@ -41,13 +41,7 @@ public class AddLocalityWindow extends DialogFragment
         builder.setView(ll).setPositiveButton("Dodaj", (dialog, id) ->
                 {
                     String newLocality = editText.getText().toString();
-                    if (isValidLocality(newLocality)) {
-                        Locality locality = new Locality(newLocality, context);
-                        localities.add(locality);
-                        MainActivity.localitiesListAddapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(context, "Nieprawidłowa nazwa lokalizacji", Toast.LENGTH_SHORT).show();
-                    }
+                    localities.add(new Locality(newLocality, context));
                 })
                 .setNegativeButton("Anuluj", (dialog, id) -> dialog.cancel());
 

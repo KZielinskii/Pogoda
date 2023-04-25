@@ -22,12 +22,13 @@ public class Locality {
     private int currentTemperature;
     private boolean isSunny;
     private boolean isRaining;
-    private boolean flag;
+    private double latitude;
+    private double longitude;
+    private double pressure;
 
     public Locality(String name, Context context) {
         this.name = name;
         this.context = context;
-        this.flag = false;
         readFromPreferences();
         updateWeather();
     }
@@ -41,7 +42,9 @@ public class Locality {
     }
     public boolean getIsSunny(){return isSunny;}
     public boolean getIsRaining(){return isRaining;}
-    public boolean getFlag(){return flag;}
+    public double getLatitude(){return latitude;}
+    public double getLongitude(){return longitude;}
+    public double getPressure(){return pressure;}
 
     public void updateWeather() {
 
@@ -54,14 +57,15 @@ public class Locality {
                     try {
                         JSONObject main = response.getJSONObject("main");
                         currentTemperature = main.getInt("temp");
+                        latitude = response.getJSONObject("coord").getDouble("lat");
+                        longitude = response.getJSONObject("coord").getDouble("lon");
+                        pressure = main.getDouble("pressure");
 
                         JSONArray weather = response.getJSONArray("weather");
                         String weatherDescription = weather.getJSONObject(0).getString("description");
 
                         isSunny = weatherDescription.contains("clear");
                         isRaining = weatherDescription.contains("rain");
-
-                        flag = true;
 
                         saveToPreferences();
                         MainActivity.localitiesListAddapter.notifyDataSetChanged();
@@ -94,16 +98,19 @@ public class Locality {
 
         if(!saved.equals(""))
         {
-            currentTemperature = Double.valueOf(Double.parseDouble(dane[0])).intValue();
-            isSunny = Boolean.parseBoolean(dane[1]);
-            isRaining = Boolean.parseBoolean(dane[2]);
+            if(dane[0]!=null)currentTemperature = Double.valueOf(Double.parseDouble(dane[0])).intValue();
+            if(dane[1]!=null)isSunny = Boolean.parseBoolean(dane[1]);
+            if(dane[2]!=null)isRaining = Boolean.parseBoolean(dane[2]);
+            if(dane[3]!=null)latitude = Double.parseDouble(dane[3]);
+            if(dane[4]!=null)longitude = Double.parseDouble(dane[4]);
+            if(dane[5]!=null)pressure = Double.parseDouble(dane[5]);
         }
     }
 
     private void saveToPreferences() {
         SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(name, currentTemperature + "," + isSunny + "," + isRaining);
+        editor.putString(name, currentTemperature + "," + isSunny + "," + isRaining + "," + latitude + "," + longitude + "," + pressure);
         editor.apply();
     }
 

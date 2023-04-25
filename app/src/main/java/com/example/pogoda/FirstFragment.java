@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,19 +21,25 @@ public class FirstFragment extends Fragment {
     private int temperature;
     private boolean isSunny;
     private boolean isRaining;
+    private double latitude;
+    private double longitude;
+    private double pressure;
 
-    public FirstFragment(String name, int index, int temperature, boolean isSunny, boolean isRaining) {
+    public FirstFragment(String name, int index, int temperature, boolean isSunny, boolean isRaining, double latitude, double longitude, double pressure) {
         this.localityName = name;
         this.index = index;
         this.temperature = temperature;
         this.isRaining = isRaining;
         this.isSunny = isSunny;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.pressure = pressure;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_first, container, false);
+        View view = inflater.inflate(R.layout.fragment_current_weather, container, false);
 
         TextView localityTv = view.findViewById(R.id.locality);
         TextView coordinatesTv = view.findViewById(R.id.coordinates);
@@ -60,7 +65,9 @@ public class FirstFragment extends Fragment {
         });
 
         localityTv.setText(this.localityName);
+        coordinatesTv.setText(""+this.latitude+"°N   "+this.longitude+"°E");
         temperatureTv.setText(""+this.temperature+" ℃");
+        pressureTv.setText(""+this.pressure + " hPa");
 
         if(isSunny)weatherIconTv.setImageResource(R.drawable.ic_sun);
         else if(isRaining)weatherIconTv.setImageResource(R.drawable.ic_rain);

@@ -53,6 +53,9 @@ public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
             intent.putExtra("temperature", locality.getCurrentTemperature());
             intent.putExtra("is_sunny", locality.getIsSunny());
             intent.putExtra("is_raining", locality.getIsRaining());
+            intent.putExtra("latitude", locality.getLatitude());
+            intent.putExtra("longitude", locality.getLongitude());
+            intent.putExtra("pressure", locality.getPressure());
 
             getContext().startActivity(intent);
         });
