@@ -56,6 +56,7 @@ public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
             intent.putExtra("latitude", locality.getLatitude());
             intent.putExtra("longitude", locality.getLongitude());
             intent.putExtra("pressure", locality.getPressure());
+            intent.putExtra("description", locality.getWeatherDescription());
 
             getContext().startActivity(intent);
         });
@@ -65,9 +66,15 @@ public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
 
     private void updateIcon(ImageView icon, int index) {
         Locality locality = localities.get(index);
-        if(locality.getIsSunny())icon.setImageResource(R.mipmap.ic_sun);
-        else if(locality.getIsRaining())icon.setImageResource(R.mipmap.ic_rain);
-        else icon.setImageResource(R.mipmap.ic_cloud);
+        String description = locality.getWeatherDescription();
+        if(description!=null) {
+            if (description.contains("clear")) icon.setImageResource(R.drawable.ic_sun);
+            else if (description.contains("rain")) icon.setImageResource(R.drawable.ic_rain);
+            else if (description.contains("clouds")) icon.setImageResource(R.drawable.ic_sun_cloud);
+            else if (description.contains("overcast clouds")) icon.setImageResource(R.drawable.ic_cloud);
+            else if (description.contains("snow")) icon.setImageResource(R.drawable.ic_snow);
+            else if (description.contains("mist")) icon.setImageResource(R.drawable.ic_mist);
+        }
     }
     public static ArrayList<Locality> getLocalities() {
         return localities;

@@ -25,6 +25,7 @@ public class Locality {
     private double latitude;
     private double longitude;
     private double pressure;
+    private String weatherDescription;
 
     public Locality(String name, Context context) {
         this.name = name;
@@ -45,6 +46,7 @@ public class Locality {
     public double getLatitude(){return latitude;}
     public double getLongitude(){return longitude;}
     public double getPressure(){return pressure;}
+    public String getWeatherDescription(){return weatherDescription;}
 
     public void updateWeather() {
 
@@ -62,7 +64,7 @@ public class Locality {
                         pressure = main.getDouble("pressure");
 
                         JSONArray weather = response.getJSONArray("weather");
-                        String weatherDescription = weather.getJSONObject(0).getString("description");
+                        weatherDescription = weather.getJSONObject(0).getString("description");
 
                         isSunny = weatherDescription.contains("clear");
                         isRaining = weatherDescription.contains("rain");
@@ -74,7 +76,7 @@ public class Locality {
                     }
                 },
                 error -> {
-                    if (error instanceof NetworkError || error instanceof NoConnectionError) {
+                    if (error instanceof NetworkError) {
                         readFromPreferences();
                         Toast.makeText(context, "Dane mogą być nieaktualne.\n (Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
                     } else if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
@@ -98,19 +100,18 @@ public class Locality {
 
         if(!saved.equals(""))
         {
-            if(dane[0]!=null)currentTemperature = Double.valueOf(Double.parseDouble(dane[0])).intValue();
-            if(dane[1]!=null)isSunny = Boolean.parseBoolean(dane[1]);
-            if(dane[2]!=null)isRaining = Boolean.parseBoolean(dane[2]);
-            if(dane[3]!=null)latitude = Double.parseDouble(dane[3]);
-            if(dane[4]!=null)longitude = Double.parseDouble(dane[4]);
-            if(dane[5]!=null)pressure = Double.parseDouble(dane[5]);
+            currentTemperature = Double.valueOf(Double.parseDouble(dane[0])).intValue();
+            latitude = Double.parseDouble(dane[1]);
+            longitude = Double.parseDouble(dane[2]);
+            pressure = Double.parseDouble(dane[3]);
+            weatherDescription = String.valueOf(dane[4]);
         }
     }
 
     private void saveToPreferences() {
         SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(name, currentTemperature + "," + isSunny + "," + isRaining + "," + latitude + "," + longitude + "," + pressure);
+        editor.putString(name, currentTemperature + "," + latitude + "," + longitude + "," + pressure + "," + weatherDescription);
         editor.apply();
     }
 

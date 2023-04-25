@@ -11,4 +11,5 @@
     <string name="pressure">Ciśnienie:</string>
     <string name="delete">Usuń</string>
     <string name="current_weather">Aktualna</string>
+    <string name="description">Opis:</string>
 </resources>
