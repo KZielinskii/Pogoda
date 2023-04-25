@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CurrentWeatherFragment">
+    android:padding="8dp"
+    tools:context=".WindFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/localityName"
+            android:text="@string/humidity"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/locality"
+            android:id="@+id/humidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -28,11 +28,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/coordinates"
+            android:text="@string/visibility"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/coordinates"
+            android:id="@+id/visibility"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -41,11 +41,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/temperature"
+            android:text="@string/wind_speed"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/temperature"
+            android:id="@+id/wind_speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -54,45 +54,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pressure"
+            android:text="@string/wind_deg"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/pressure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="36sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/description"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/weather_description"
+            android:id="@+id/wind_deg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="36sp" />
 
         <ImageView
-            android:id="@+id/weather_icon"
+            android:id="@+id/wind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_sun" />
-
-        <Button
-            android:id="@+id/delete_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#A61F1F"
-            android:padding="24dp"
-            android:text="@string/delete"
-            android:textColor="@color/white"
-            android:textSize="36sp" />
+            android:src="@drawable/ic_wind_68_113" />
 
     </LinearLayout>
 

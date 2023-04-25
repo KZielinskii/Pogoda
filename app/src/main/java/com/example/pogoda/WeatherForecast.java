@@ -24,13 +24,17 @@ public class WeatherForecast extends AppCompatActivity{
         double longitude = getIntent().getDoubleExtra("longitude", -1);
         double pressure = getIntent().getDoubleExtra("pressure", -1);
         String description = getIntent().getStringExtra("description");
+        int visibilityInMeters = getIntent().getIntExtra("visibility", -1);
+        int humidity = getIntent().getIntExtra("humidity", -1);
+        int windSpeed = getIntent().getIntExtra("wind_speed", -1);
+        int windDegree = getIntent().getIntExtra("wind_deg", -1);
 
         Button button1 = findViewById(R.id.firstFragment);
         Button button2 = findViewById(R.id.secondFragment);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        FirstFragment firstFragment = new FirstFragment(localityName, itemIndex, temperature, latitude, longitude, pressure, description);
+        CurrentWeatherFragment firstFragment = new CurrentWeatherFragment(localityName, itemIndex, temperature, latitude, longitude, pressure, description);
         fragmentTransaction.replace(R.id.flFragment, firstFragment);
         fragmentTransaction.commit();
 
@@ -39,7 +43,7 @@ public class WeatherForecast extends AppCompatActivity{
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                FirstFragment firstFragment = new FirstFragment(localityName, itemIndex, temperature, latitude, longitude, pressure, description);
+                CurrentWeatherFragment firstFragment = new CurrentWeatherFragment(localityName, itemIndex, temperature, latitude, longitude, pressure, description);
                 fragmentTransaction.replace(R.id.flFragment, firstFragment);
                 fragmentTransaction.commit();
             }
@@ -50,7 +54,7 @@ public class WeatherForecast extends AppCompatActivity{
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                SecondFragment secondFragment = new SecondFragment(localityName);
+                WindFragment secondFragment = new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree);
                 fragmentTransaction.replace(R.id.flFragment, secondFragment);
                 fragmentTransaction.commit();
             }

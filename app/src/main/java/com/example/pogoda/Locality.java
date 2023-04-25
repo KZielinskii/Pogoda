@@ -26,6 +26,10 @@ public class Locality {
     private double longitude;
     private double pressure;
     private String weatherDescription;
+    private int visibilityInMeters;
+    private int humidity;
+    private int windSpeed;
+    private int windDegree;
 
     public Locality(String name, Context context) {
         this.name = name;
@@ -47,6 +51,10 @@ public class Locality {
     public double getLongitude(){return longitude;}
     public double getPressure(){return pressure;}
     public String getWeatherDescription(){return weatherDescription;}
+    public int getHumidity() {return humidity;}
+    public int getVisibilityInMeters() {return visibilityInMeters;}
+    public int getWindDegree() {return windDegree;}
+    public int getWindSpeed() {return windSpeed;}
 
     public void updateWeather() {
 
@@ -58,16 +66,25 @@ public class Locality {
                 response -> {
                     try {
                         JSONObject main = response.getJSONObject("main");
+                        JSONObject wind = response.getJSONObject("wind");
+                        JSONArray weather = response.getJSONArray("weather");
+
                         currentTemperature = main.getInt("temp");
+                        humidity = main.getInt("humidity");
+                        windSpeed = wind.getInt("speed");
+                        windDegree = wind.getInt("deg");
+
+                        visibilityInMeters = response.getInt("visibility");
+
                         latitude = response.getJSONObject("coord").getDouble("lat");
                         longitude = response.getJSONObject("coord").getDouble("lon");
                         pressure = main.getDouble("pressure");
 
-                        JSONArray weather = response.getJSONArray("weather");
                         weatherDescription = weather.getJSONObject(0).getString("description");
 
                         isSunny = weatherDescription.contains("clear");
                         isRaining = weatherDescription.contains("rain");
+                        
 
                         saveToPreferences();
                         MainActivity.localitiesListAddapter.notifyDataSetChanged();
@@ -105,13 +122,17 @@ public class Locality {
             longitude = Double.parseDouble(dane[2]);
             pressure = Double.parseDouble(dane[3]);
             weatherDescription = String.valueOf(dane[4]);
+            visibilityInMeters = Integer.parseInt(dane[5]);
+            humidity = Integer.parseInt(dane[6]);
+            windSpeed = Integer.parseInt(dane[7]);
+            windDegree= Integer.parseInt(dane[8]);
         }
     }
 
     private void saveToPreferences() {
         SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(name, currentTemperature + "," + latitude + "," + longitude + "," + pressure + "," + weatherDescription);
+        editor.putString(name, currentTemperature + "," + latitude + "," + longitude + "," + pressure + "," + weatherDescription + "," + visibilityInMeters + "," + humidity + "," + windSpeed + "," + windDegree);
         editor.apply();
     }
 

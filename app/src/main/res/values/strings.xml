@@ -10,6 +10,11 @@
     <string name="coordinates">Współrzędne geograficzne:</string>
     <string name="pressure">Ciśnienie:</string>
     <string name="delete">Usuń</string>
-    <string name="current_weather">Aktualna</string>
+    <string name="current_weather">Aktualna pogoda</string>
     <string name="description">Opis:</string>
+    <string name="humidity">Wilgotność:</string>
+    <string name="visibility">Widoczność:</string>
+    <string name="wind_speed">Prętkość wiatru:</string>
+    <string name="wind_deg">Kierunek wiatru:</string>
+    <string name="other_info">Dodatkowe informacje</string>
 </resources>

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class FirstFragment extends Fragment {
+public class CurrentWeatherFragment extends Fragment {
 
     private String localityName;
     private int index;
@@ -24,7 +24,7 @@ public class FirstFragment extends Fragment {
     private double pressure;
     private String description;
 
-    public FirstFragment(String name, int index, int temperature, double latitude, double longitude, double pressure, String description) {
+    public CurrentWeatherFragment(String name, int index, int temperature, double latitude, double longitude, double pressure, String description) {
         this.localityName = name;
         this.index = index;
         this.temperature = temperature;
@@ -83,7 +83,7 @@ public class FirstFragment extends Fragment {
         else if(description.contains("clouds"))
         {
             weatherIconTv.setImageResource(R.drawable.ic_sun_cloud);
-            newDescription += "Zachmurzenie\n";
+            newDescription += "Lekkie zachmurzenie\n";
         }
         else if(description.contains("overcast clouds"))
         {
