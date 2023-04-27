@@ -51,7 +51,7 @@ public class CurrentWeatherFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ArrayList<Locality> localities = LocalitiesListAddapter.getLocalities();
-                LocalitiesListAddapter.getLocalities().get(index).deleteFromPreferences();
+                LocalitiesListAddapter.getLocalities().get(index).deleteFromPreferencesWeather();
                 localities.remove(index);
 
                 MainActivity.localitiesListAddapter.notifyDataSetChanged();

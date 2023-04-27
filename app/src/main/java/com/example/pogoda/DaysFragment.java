@@ -24,10 +24,15 @@ import java.util.ArrayList;
 public class DaysFragment extends Fragment {
 
     private String localityName;
-    private DayListAdapter adapter;
-
-    public DaysFragment(String localityName) {
+    private long[] dateFiveDays;
+    private int[] temperatureFiveDays;
+    private String[] descriptionFiveDays;
+    public DaysFragment(String localityName, long[] dateFiveDays, int[] temperatureFiveDays, String[] descriptionFiveDays)
+    {
         this.localityName = localityName;
+        this.dateFiveDays = dateFiveDays;
+        this.temperatureFiveDays = temperatureFiveDays;
+        this.descriptionFiveDays = descriptionFiveDays;
     }
 
     @Override
@@ -37,16 +42,17 @@ public class DaysFragment extends Fragment {
         TextView name = view.findViewById(R.id.locality);
         name.setText(this.localityName);
 
-        ArrayList<Day> array = new ArrayList<Day>();
+        ArrayList<Day> array = new ArrayList<>();
 
         ListView listView = view.findViewById(R.id.days_list);
         DayListAdapter adapter = new DayListAdapter(getContext(), array);
         listView.setAdapter(adapter);
 
-        Day newDay = new Day("Poniedziałek", 1, R.mipmap.ic_cloud);
-        adapter.add(newDay);
-
-        //TODO Tutaj dodać najbliższe dni jak wyżej!
+        for(int i=0; i<5; i++)
+        {
+            Day newDay = new Day(""+dateFiveDays[i], temperatureFiveDays[i], R.mipmap.ic_cloud);
+            adapter.add(newDay);
+        }
 
         return view;
     }

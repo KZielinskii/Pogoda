@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 
 public class Locality {
+    private final static int FOR_SIZE = 5;
     private Context context;
     private final String name;
     private int currentTemperature;
@@ -31,11 +32,14 @@ public class Locality {
     private int humidity;
     private int windSpeed;
     private int windDegree;
+    private long [] dateFiveDays = new long[FOR_SIZE];
+    private int [] temperatureFiveDays = new int[FOR_SIZE];
+    private String [] descriptionFiveDays = new String[FOR_SIZE];
 
     public Locality(String name, Context context) {
         this.name = name;
         this.context = context;
-        readFromPreferences();
+        readFromPreferencesWeather();
         updateWeather();
     }
 
@@ -56,29 +60,16 @@ public class Locality {
     public int getVisibilityInMeters() {return visibilityInMeters;}
     public int getWindDegree() {return windDegree;}
     public int getWindSpeed() {return windSpeed;}
-
-    //TODO Tutaj przekazać dane do DaysFragment
-    /*
-    StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        JSONArray jsonArray = jsonObject.getJSONArray("daily");
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject dayObject = jsonArray.getJSONObject(i);
-                            long date = dayObject.getLong("dt");
-                            int temperature = dayObject.getJSONObject("temp").getInt("day");
-                            String weatherDescription = dayObject.getJSONArray("weather").getJSONObject(0).getString("description");
-
-                            Day newDay = new Day("Poniedziałek", temperature, R.mipmap.ic_cloud);
-                            adapter.add(newDay);
-                            adapter.notifyDataSetChanged();
-*/
+    public long getDateFiveDays(int index) {return dateFiveDays[index];}
+    public int getTemperatureFiveDays(int index) {return temperatureFiveDays[index];}
+    public String getDescriptionFiveDays(int index) {return descriptionFiveDays[index];}
     public void updateWeather() {
+        updateOneDaysWeateher();
+        updateFiveDaysWeather();
+    }
 
+    private void updateOneDaysWeateher()
+    {
         String start = "https://api.openweathermap.org/data/2.5/weather?q=";
         String end = "&appid=bc170ec055ab5eb458be802e3683e686&units=metric";
         String url = start + name + end;
@@ -94,19 +85,15 @@ public class Locality {
                         humidity = main.getInt("humidity");
                         windSpeed = wind.getInt("speed");
                         windDegree = wind.getInt("deg");
-
                         visibilityInMeters = response.getInt("visibility");
-
                         latitude = response.getJSONObject("coord").getDouble("lat");
                         longitude = response.getJSONObject("coord").getDouble("lon");
                         pressure = main.getDouble("pressure");
-
                         weatherDescription = weather.getJSONObject(0).getString("description");
-
                         isSunny = weatherDescription.contains("clear");
                         isRaining = weatherDescription.contains("rain");
 
-                        saveToPreferences();
+                        saveToPreferencesOneWeather();
                         MainActivity.localitiesListAddapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -114,7 +101,7 @@ public class Locality {
                 },
                 error -> {
                     if (error instanceof NetworkError) {
-                        readFromPreferences();
+                        readFromPreferencesOneWeather();
                         Toast.makeText(context, "Dane mogą być nieaktualne.\n (Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
                     } else if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
                         Toast.makeText(context, "Podano niepoprawną nazwę lokalizacji!", Toast.LENGTH_SHORT).show();
@@ -123,14 +110,66 @@ public class Locality {
                     } else {
                         Toast.makeText(context, "Wystąpił błąd: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                    readFromPreferences();
+                    readFromPreferencesOneWeather();
                 });
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void readFromPreferences() {
+    public void updateFiveDaysWeather()
+    {
+        String start = "https://api.openweathermap.org/data/2.5/weather?q=";
+        String end = "&appid=bc170ec055ab5eb458be802e3683e686&units=metric";
+        String url = start + name + end;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        try
+                        {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("daily");
+
+                            for (int i = 0; i < jsonArray.length(); i++)
+                            {
+                                JSONObject dayObject = jsonArray.getJSONObject(i);
+                                dateFiveDays[i] = dayObject.getLong("dt");
+                                temperatureFiveDays[i] = dayObject.getJSONObject("temp").getInt("day");
+                                descriptionFiveDays[i] = dayObject.getJSONArray("weather").getJSONObject(0).getString("description");
+                            }
+                            saveToPreferencesFiveDaysWeather();
+                        } catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                error -> {
+                    if (error instanceof NetworkError) {
+                        readFromPreferencesFiveDaysWeather();
+                        Toast.makeText(context, "Dane mogą być nieaktualne.\n (Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
+                    } else if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
+                        Toast.makeText(context, "Podano niepoprawną nazwę lokalizacji!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Wystąpił błąd: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    readFromPreferencesFiveDaysWeather();
+                });
+    }
+
+    private void readFromPreferencesWeather() {
+        readFromPreferencesOneWeather();
+        readFromPreferencesFiveDaysWeather();
+    }
+    public void deleteFromPreferencesWeather() {
+        deleteFromPreferencesOneWeather();
+        deleteFromPreferencesFiveDaysWeather();
+    }
+    private void readFromPreferencesOneWeather() {
         SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
         String saved = preferences.getString(name, "");
         String[] dane = saved.split(",");
@@ -149,17 +188,50 @@ public class Locality {
         }
     }
 
-    private void saveToPreferences() {
+    private void saveToPreferencesOneWeather() {
         SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(name, currentTemperature + "," + latitude + "," + longitude + "," + pressure + "," + weatherDescription + "," + visibilityInMeters + "," + humidity + "," + windSpeed + "," + windDegree);
         editor.apply();
     }
 
-    public void deleteFromPreferences() {
+    public void deleteFromPreferencesOneWeather() {
         SharedPreferences preferences = context.getSharedPreferences("SaveWeather", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.remove(name);
+        editor.apply();
+    }
+
+    private void readFromPreferencesFiveDaysWeather() {
+        SharedPreferences preferences = context.getSharedPreferences("SaveWeatherFiveDays", Context.MODE_PRIVATE);
+        String saved = preferences.getString(name, "");
+        String[] dane = saved.split(",");
+
+        if(!saved.equals(""))
+        {
+            for(int i=0; i<FOR_SIZE; i++)
+            {
+                dateFiveDays[i] = Long.parseLong(dane[0]);
+                temperatureFiveDays[i] = Integer.parseInt(dane[1]);
+                descriptionFiveDays[i] = dane[2];
+            }
+        }
+    }
+
+    private void saveToPreferencesFiveDaysWeather() {
+        SharedPreferences preferences = context.getSharedPreferences("SaveWeatherFiveDays", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        for(int i=0; i<FOR_SIZE; i++)
+        {
+            editor.putString(name+i, dateFiveDays[i] + "," + temperatureFiveDays[i] + "," + descriptionFiveDays[i]);
+        }
+        editor.apply();
+    }
+
+    public void deleteFromPreferencesFiveDaysWeather() {
+        SharedPreferences preferences = context.getSharedPreferences("SaveWeatherFiveDays", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        for(int i=0; i<FOR_SIZE; i++)editor.remove(name+i);
         editor.apply();
     }
 }

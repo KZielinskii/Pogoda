@@ -61,6 +61,12 @@ public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
             intent.putExtra("humidity",locality.getHumidity());
             intent.putExtra("wind_speed",locality.getWindSpeed());
             intent.putExtra("wind_deg",locality.getWindDegree());
+            for(int i=0; i<5; i++)
+            {
+                intent.putExtra("five_days_data_"+i,locality.getDateFiveDays(i));
+                intent.putExtra("five_days_temperature_"+i,locality.getTemperatureFiveDays(i));
+                intent.putExtra("five_days_description_"+i,locality.getDescriptionFiveDays(i));
+            }
 
             getContext().startActivity(intent);
         });

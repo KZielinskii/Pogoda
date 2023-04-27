@@ -29,6 +29,17 @@ public class WeatherForecastActivity extends AppCompatActivity{
         int windSpeed = getIntent().getIntExtra("wind_speed", -1);
         int windDegree = getIntent().getIntExtra("wind_deg", -1);
 
+        long[] dateFiveDays = new long[5];
+        int[] temperatureFiveDays = new int[5];
+        String[] descriptionFiveDays = new String[5];
+        for(int i=0; i<5; i++)
+        {
+            dateFiveDays[i] = getIntent().getLongExtra("five_days_data_"+i,-1);
+            temperatureFiveDays[i] = getIntent().getIntExtra("five_days_temperature_"+i,0);
+            descriptionFiveDays[i] = getIntent().getStringExtra("five_days_description_"+i);
+        }
+
+
         Button button1 = findViewById(R.id.firstFragment);
         Button button2 = findViewById(R.id.secondFragment);
         Button button3 = findViewById(R.id.thirdFragment);
@@ -66,7 +77,7 @@ public class WeatherForecastActivity extends AppCompatActivity{
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                DaysFragment thirdFragment = new DaysFragment(localityName);
+                DaysFragment thirdFragment = new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays);
                 fragmentTransaction.replace(R.id.flFragment, thirdFragment);
                 fragmentTransaction.commit();
             }
