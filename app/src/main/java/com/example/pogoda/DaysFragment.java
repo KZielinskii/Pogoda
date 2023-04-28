@@ -24,10 +24,10 @@ import java.util.ArrayList;
 public class DaysFragment extends Fragment {
 
     private String localityName;
-    private long[] dateFiveDays;
+    private String[] dateFiveDays;
     private int[] temperatureFiveDays;
     private String[] descriptionFiveDays;
-    public DaysFragment(String localityName, long[] dateFiveDays, int[] temperatureFiveDays, String[] descriptionFiveDays)
+    public DaysFragment(String localityName, String[] dateFiveDays, int[] temperatureFiveDays, String[] descriptionFiveDays)
     {
         this.localityName = localityName;
         this.dateFiveDays = dateFiveDays;
@@ -50,7 +50,7 @@ public class DaysFragment extends Fragment {
 
         for(int i=0; i<5; i++)
         {
-            Day newDay = new Day(""+dateFiveDays[i], temperatureFiveDays[i], R.mipmap.ic_cloud);
+            Day newDay = new Day(""+dateFiveDays[i], temperatureFiveDays[i], descriptionFiveDays[i]);
             adapter.add(newDay);
         }
 

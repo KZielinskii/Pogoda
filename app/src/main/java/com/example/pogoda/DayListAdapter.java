@@ -31,10 +31,24 @@ public class DayListAdapter extends ArrayAdapter<Day> {
         TextView dayTempTextView = convertView.findViewById(R.id.dayTemp);
         ImageView weatherIconImageView = convertView.findViewById(R.id.weather_icon);
 
-        dayNameTextView.setText(day.getDayName());
-        dayTempTextView.setText(day.getDayTemp());
+        dayNameTextView.setText(day.getDayName().substring(0,10));
+        dayTempTextView.setText(day.getDayTemp()+" ℃");
+        updateIcon(weatherIconImageView, day);
 
         return convertView;
+    }
+
+    private void updateIcon(ImageView icon, Day day) {
+
+        String description = day.getDescription();
+        if(description!=null) {
+            if (description.contains("clear")) icon.setImageResource(R.drawable.ic_sun);
+            else if (description.contains("rain")) icon.setImageResource(R.drawable.ic_rain);
+            else if (description.contains("clouds")) icon.setImageResource(R.drawable.ic_sun_cloud);
+            else if (description.contains("overcast clouds")) icon.setImageResource(R.drawable.ic_cloud);
+            else if (description.contains("snow")) icon.setImageResource(R.drawable.ic_snow);
+            else if (description.contains("mist")) icon.setImageResource(R.drawable.ic_mist);
+        }
     }
 }
 

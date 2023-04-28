@@ -29,12 +29,12 @@ public class WeatherForecastActivity extends AppCompatActivity{
         int windSpeed = getIntent().getIntExtra("wind_speed", -1);
         int windDegree = getIntent().getIntExtra("wind_deg", -1);
 
-        long[] dateFiveDays = new long[5];
+        String[] dateFiveDays = new String[5];
         int[] temperatureFiveDays = new int[5];
         String[] descriptionFiveDays = new String[5];
         for(int i=0; i<5; i++)
         {
-            dateFiveDays[i] = getIntent().getLongExtra("five_days_data_"+i,-1);
+            dateFiveDays[i] = getIntent().getStringExtra("five_days_data_"+i);
             temperatureFiveDays[i] = getIntent().getIntExtra("five_days_temperature_"+i,0);
             descriptionFiveDays[i] = getIntent().getStringExtra("five_days_description_"+i);
         }
