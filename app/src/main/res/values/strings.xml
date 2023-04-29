@@ -16,7 +16,7 @@
     <string name="visibility">Widoczność:</string>
     <string name="wind_speed">Prętkość wiatru:</string>
     <string name="wind_deg">Kierunek wiatru:</string>
-    <string name="other_info">Dodatkowe informacje</string>
-    <string name="upcoming_days">Najbliższe dni</string>
+    <string name="other_info">Dodat. inf.</string>
+    <string name="upcoming_days">5 dni</string>
     <string name="sub">Czy na pewno chcesz usunąć miejscowość:</string>
 </resources>
