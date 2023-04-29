@@ -18,4 +18,5 @@
     <string name="wind_deg">Kierunek wiatru:</string>
     <string name="other_info">Dodatkowe informacje</string>
     <string name="upcoming_days">Najbliższe dni</string>
+    <string name="sub">Czy na pewno chcesz usunąć miejscowość:</string>
 </resources>

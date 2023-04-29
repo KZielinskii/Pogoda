@@ -46,7 +46,7 @@ public class WeatherForecastActivity extends AppCompatActivity{
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        CurrentWeatherFragment firstFragment = new CurrentWeatherFragment(localityName, itemIndex, temperature, latitude, longitude, pressure, description);
+        CurrentWeatherFragment firstFragment = new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description);
         fragmentTransaction.replace(R.id.flFragment, firstFragment);
         fragmentTransaction.commit();
 
@@ -55,7 +55,7 @@ public class WeatherForecastActivity extends AppCompatActivity{
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                CurrentWeatherFragment firstFragment = new CurrentWeatherFragment(localityName, itemIndex, temperature, latitude, longitude, pressure, description);
+                CurrentWeatherFragment firstFragment = new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description);
                 fragmentTransaction.replace(R.id.flFragment, firstFragment);
                 fragmentTransaction.commit();
             }

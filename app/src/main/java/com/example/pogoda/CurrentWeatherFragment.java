@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class CurrentWeatherFragment extends Fragment {
 
     private String localityName;
+    private FragmentManager fragmentManager;
     private int index;
     private int temperature;
     private double latitude;
@@ -24,7 +26,7 @@ public class CurrentWeatherFragment extends Fragment {
     private double pressure;
     private String description;
 
-    public CurrentWeatherFragment(String name, int index, int temperature, double latitude, double longitude, double pressure, String description) {
+    public CurrentWeatherFragment(String name, FragmentManager supportFragmentManager, int index, int temperature, double latitude, double longitude, double pressure, String description) {
         this.localityName = name;
         this.index = index;
         this.temperature = temperature;
@@ -32,6 +34,7 @@ public class CurrentWeatherFragment extends Fragment {
         this.longitude = longitude;
         this.pressure = pressure;
         this.description = description;
+        this.fragmentManager = supportFragmentManager;
     }
 
     @Override
@@ -50,16 +53,10 @@ public class CurrentWeatherFragment extends Fragment {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Locality> localities = LocalitiesListAddapter.getLocalities();
-                LocalitiesListAddapter.getLocalities().get(index).deleteFromPreferencesWeather();
-                localities.remove(index);
 
-                MainActivity.localitiesListAddapter.notifyDataSetChanged();
+                SubstractLocalityWindow dialogFragment = new SubstractLocalityWindow(LocalitiesListAddapter.getLocalities(), index, getActivity());
+                dialogFragment.show(fragmentManager, "show_sub_window_dialog");
 
-                Activity activity = getActivity();
-                if (activity != null) {
-                    activity.finish();
-                }
             }
         });
 
