@@ -7,10 +7,7 @@ import android.widget.Toast;
 import com.android.volley.NetworkError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -106,7 +103,7 @@ public class Locality {
                         Toast.makeText(context, "Dane mogą być nieaktualne.\n (Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
                     } else if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
                         Toast.makeText(context, "Podano niepoprawną nazwę lokalizacji!", Toast.LENGTH_SHORT).show();
-                        LocalitiesListAddapter.getLocalities().remove(this);
+                        LocalitiesListAdapter.getLocalities().remove(this);
                         MainActivity.localitiesListAddapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(context, "Wystąpił błąd: " + error.getMessage(), Toast.LENGTH_SHORT).show();

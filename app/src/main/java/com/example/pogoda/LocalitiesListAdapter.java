@@ -16,11 +16,11 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class LocalitiesListAddapter extends ArrayAdapter<Locality> {
+public class LocalitiesListAdapter extends ArrayAdapter<Locality> {
     private static ArrayList<Locality> localities;
     private Context context;
 
-    public LocalitiesListAddapter(Context context, ArrayList<Locality> localities) {
+    public LocalitiesListAdapter(Context context, ArrayList<Locality> localities) {
         super(context, 0, localities);
         this.localities = localities;
         this.context = context;

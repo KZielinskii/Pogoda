@@ -1,6 +1,5 @@
 package com.example.pogoda;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 public class CurrentWeatherFragment extends Fragment {
 
@@ -54,7 +51,7 @@ public class CurrentWeatherFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                SubstractLocalityWindow dialogFragment = new SubstractLocalityWindow(LocalitiesListAddapter.getLocalities(), index, getActivity());
+                SubstractLocalityWindow dialogFragment = new SubstractLocalityWindow(LocalitiesListAdapter.getLocalities(), index, getActivity());
                 dialogFragment.show(fragmentManager, "show_sub_window_dialog");
 
             }

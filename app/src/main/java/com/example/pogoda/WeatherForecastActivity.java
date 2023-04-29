@@ -4,85 +4,96 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class WeatherForecastActivity extends AppCompatActivity{
-
+    private ViewPagerAdapter adapter;
+    private ViewPager viewPager;
+    private final static int FOR_SIZE = 5;
     private String localityName;
+    private int itemIndex;
+    private int temperature;
+    private double latitude;
+    private double longitude;
+    private double pressure;
+    private String description;
+    private int visibilityInMeters;
+    private int humidity;
+    private int windSpeed;
+    private int windDegree;
+    private String[] dateFiveDays = new String[FOR_SIZE];
+    private int[] temperatureFiveDays = new int[FOR_SIZE];
+    private String[] descriptionFiveDays = new String[FOR_SIZE];
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
         localityName = getIntent().getStringExtra("locality_name");
-        int itemIndex = getIntent().getIntExtra("item_index", -1);
-        int temperature = getIntent().getIntExtra("temperature",0);
-        double latitude = getIntent().getDoubleExtra("latitude", -1);
-        double longitude = getIntent().getDoubleExtra("longitude", -1);
-        double pressure = getIntent().getDoubleExtra("pressure", -1);
-        String description = getIntent().getStringExtra("description");
-        int visibilityInMeters = getIntent().getIntExtra("visibility", -1);
-        int humidity = getIntent().getIntExtra("humidity", -1);
-        int windSpeed = getIntent().getIntExtra("wind_speed", -1);
-        int windDegree = getIntent().getIntExtra("wind_deg", -1);
+        itemIndex = getIntent().getIntExtra("item_index", -1);
+        temperature = getIntent().getIntExtra("temperature",0);
+        latitude = getIntent().getDoubleExtra("latitude", -1);
+        longitude = getIntent().getDoubleExtra("longitude", -1);
+        pressure = getIntent().getDoubleExtra("pressure", -1);
+        description = getIntent().getStringExtra("description");
+        visibilityInMeters = getIntent().getIntExtra("visibility", -1);
+        humidity = getIntent().getIntExtra("humidity", -1);
+        windSpeed = getIntent().getIntExtra("wind_speed", -1);
+        windDegree = getIntent().getIntExtra("wind_deg", -1);
 
-        String[] dateFiveDays = new String[5];
-        int[] temperatureFiveDays = new int[5];
-        String[] descriptionFiveDays = new String[5];
-        for(int i=0; i<5; i++)
+        for(int i=0; i<FOR_SIZE; i++)
         {
             dateFiveDays[i] = getIntent().getStringExtra("five_days_data_"+i);
             temperatureFiveDays[i] = getIntent().getIntExtra("five_days_temperature_"+i,0);
             descriptionFiveDays[i] = getIntent().getStringExtra("five_days_description_"+i);
         }
 
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description));
+        adapter.addFragment(new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree));
+        adapter.addFragment(new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays));
 
-        Button button1 = findViewById(R.id.firstFragment);
-        Button button2 = findViewById(R.id.secondFragment);
-        Button button3 = findViewById(R.id.thirdFragment);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        CurrentWeatherFragment firstFragment = new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description);
-        fragmentTransaction.replace(R.id.flFragment, firstFragment);
-        fragmentTransaction.commit();
-
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                CurrentWeatherFragment firstFragment = new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description);
-                fragmentTransaction.replace(R.id.flFragment, firstFragment);
-                fragmentTransaction.commit();
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                WindFragment secondFragment = new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree);
-                fragmentTransaction.replace(R.id.flFragment, secondFragment);
-                fragmentTransaction.commit();
-            }
-        });
-
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                DaysFragment thirdFragment = new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays);
-                fragmentTransaction.replace(R.id.flFragment, thirdFragment);
-                fragmentTransaction.commit();
-            }
-        });
+        viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(0);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_refresh) {
+            updateWeather();
+            Toast.makeText(this, "Odświeżono dane dla miejscowości: "+localityName, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void updateWeather()
+    {
+        Locality locality = new Locality(localityName, getApplicationContext());
+        locality.updateWeather();
+        //todo nie aktualizuje sie
+    }
+
+
 }
 
 
