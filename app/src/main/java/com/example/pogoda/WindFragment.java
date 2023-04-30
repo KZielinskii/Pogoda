@@ -16,6 +16,7 @@ public class WindFragment extends Fragment {
     private int humidity;
     private int windSpeed;
     private int windDegree;
+    public WindFragment(){}
     public WindFragment(String localityName, int visibilityInMeters, int humidity, int windSpeed, int windDegree) {
         this.localityName = localityName;
         this.visibilityInMeters = visibilityInMeters;
@@ -26,7 +27,16 @@ public class WindFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
 
+        if (savedInstanceState != null)
+        {
+            localityName = savedInstanceState.getString("localityName");
+            visibilityInMeters = savedInstanceState.getInt("visibilityInMeters");
+            humidity = savedInstanceState.getInt("humidity");
+            windSpeed = savedInstanceState.getInt("windSpeed");
+            windDegree = savedInstanceState.getInt("windDegree");
+        }
         View view = inflater.inflate(R.layout.fragment_wind_humidity, container, false);
 
         TextView humidityTv = view.findViewById(R.id.humidity);
@@ -52,4 +62,15 @@ public class WindFragment extends Fragment {
 
         return view;
     }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("localityName", localityName);
+        outState.putInt("visibilityInMeters", visibilityInMeters);
+        outState.putInt("humidity", humidity);
+        outState.putInt("windSpeed", windSpeed);
+        outState.putInt("windDegree", windDegree);
+    }
+
 }

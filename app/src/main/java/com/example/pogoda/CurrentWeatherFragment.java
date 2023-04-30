@@ -23,6 +23,8 @@ public class CurrentWeatherFragment extends Fragment {
     private double pressure;
     private String description;
 
+    public CurrentWeatherFragment() {}
+
     public CurrentWeatherFragment(String name, FragmentManager supportFragmentManager, int index, int temperature, double latitude, double longitude, double pressure, String description) {
         this.localityName = name;
         this.index = index;
@@ -36,6 +38,16 @@ public class CurrentWeatherFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            localityName = savedInstanceState.getString("localityName");
+            index = savedInstanceState.getInt("index");
+            temperature = savedInstanceState.getInt("temperature");
+            latitude = savedInstanceState.getDouble("latitude");
+            longitude = savedInstanceState.getDouble("longitude");
+            pressure = savedInstanceState.getDouble("pressure");
+            description = savedInstanceState.getString("description");
+        }
 
         View view = inflater.inflate(R.layout.fragment_current_weather, container, false);
 
@@ -98,6 +110,18 @@ public class CurrentWeatherFragment extends Fragment {
         descriptionTv.setText(newDescription);
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("localityName", localityName);
+        outState.putInt("index", index);
+        outState.putInt("temperature", temperature);
+        outState.putDouble("latitude", latitude);
+        outState.putDouble("longitude", longitude);
+        outState.putDouble("pressure", pressure);
+        outState.putString("description", description);
     }
 
 }

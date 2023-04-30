@@ -27,6 +27,7 @@ public class DaysFragment extends Fragment {
     private String[] dateFiveDays;
     private int[] temperatureFiveDays;
     private String[] descriptionFiveDays;
+    public DaysFragment(){}
     public DaysFragment(String localityName, String[] dateFiveDays, int[] temperatureFiveDays, String[] descriptionFiveDays)
     {
         this.localityName = localityName;
@@ -37,6 +38,13 @@ public class DaysFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            localityName = savedInstanceState.getString("localityName");
+            dateFiveDays = savedInstanceState.getStringArray("dateFiveDays");
+            temperatureFiveDays = savedInstanceState.getIntArray("temperatureFiveDays");
+            descriptionFiveDays = savedInstanceState.getStringArray("descriptionFiveDays");
+        }
 
         View view = inflater.inflate(R.layout.fragment_upcoming_days, container, false);
         TextView name = view.findViewById(R.id.locality);
@@ -57,8 +65,14 @@ public class DaysFragment extends Fragment {
         return view;
     }
 
-
-
-
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        outState.putString("localityName", localityName);
+        outState.putStringArray("dateFiveDays", dateFiveDays);
+        outState.putIntArray("temperatureFiveDays", temperatureFiveDays);
+        outState.putStringArray("descriptionFiveDays", descriptionFiveDays);
+    }
 
 }

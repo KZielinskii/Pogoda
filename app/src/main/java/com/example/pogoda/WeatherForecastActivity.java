@@ -93,6 +93,45 @@ public class WeatherForecastActivity extends AppCompatActivity{
         //todo nie aktualizuje sie
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("ITEM_INDEX", itemIndex);
+        outState.putInt("TEMPERATURE", temperature);
+        outState.putDouble("LATITUDE", latitude);
+        outState.putDouble("LONGITUDE", longitude);
+        outState.putDouble("PRESSURE", pressure);
+        outState.putString("DESCRIPTION", description);
+        outState.putInt("VISIBILITY", visibilityInMeters);
+        outState.putInt("HUMIDITY", humidity);
+        outState.putInt("WIND_SPEED", windSpeed);
+        outState.putInt("WIND_DEGREE", windDegree);
+        outState.putStringArray("DATE_FIVE_DAYS", dateFiveDays);
+        outState.putIntArray("TEMPERATURE_FIVE_DAYS", temperatureFiveDays);
+        outState.putStringArray("DESCRIPTION_FIVE_DAYS", descriptionFiveDays);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        itemIndex = savedInstanceState.getInt("ITEM_INDEX");
+        temperature = savedInstanceState.getInt("TEMPERATURE");
+        latitude = savedInstanceState.getDouble("LATITUDE");
+        longitude = savedInstanceState.getDouble("LONGITUDE");
+        pressure = savedInstanceState.getDouble("PRESSURE");
+        description = savedInstanceState.getString("DESCRIPTION");
+        visibilityInMeters = savedInstanceState.getInt("VISIBILITY");
+        humidity = savedInstanceState.getInt("HUMIDITY");
+        windSpeed = savedInstanceState.getInt("WIND_SPEED");
+        windDegree = savedInstanceState.getInt("WIND_DEGREE");
+        dateFiveDays = savedInstanceState.getStringArray("DATE_FIVE_DAYS");
+        temperatureFiveDays = savedInstanceState.getIntArray("TEMPERATURE_FIVE_DAYS");
+        descriptionFiveDays = savedInstanceState.getStringArray("DESCRIPTION_FIVE_DAYS");
+        viewPager.setCurrentItem(0);
+        adapter.setFragment(0, new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description));
+        adapter.setFragment(1, new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree));
+        adapter.setFragment(2, new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays));
+    }
 
 }
 
