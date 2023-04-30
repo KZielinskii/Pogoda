@@ -1,4 +1,4 @@
-package com.example.pogoda;
+package com.example.pogoda.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,10 @@ import android.view.LayoutInflater;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+
+import com.example.pogoda.Activity.WeatherForecastActivity;
+import com.example.pogoda.Class.Locality;
+import com.example.pogoda.R;
 
 import java.util.ArrayList;
 
@@ -61,7 +65,7 @@ public class LocalitiesListAdapter extends ArrayAdapter<Locality> {
             intent.putExtra("humidity",locality.getHumidity());
             intent.putExtra("wind_speed",locality.getWindSpeed());
             intent.putExtra("wind_deg",locality.getWindDegree());
-            for(int i=0; i<5; i++)
+            for(int i=0; i<Locality.FOR_SIZE; i++)
             {
                 intent.putExtra("five_days_data_"+i,locality.getDateFiveDays(i));
                 intent.putExtra("five_days_temperature_"+i,locality.getTemperatureFiveDays(i));

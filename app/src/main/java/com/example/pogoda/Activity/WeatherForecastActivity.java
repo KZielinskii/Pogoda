@@ -1,24 +1,26 @@
-package com.example.pogoda;
+package com.example.pogoda.Activity;
+
+import static com.example.pogoda.Class.Locality.FOR_SIZE;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.pogoda.Fragment.CurrentWeatherFragment;
+import com.example.pogoda.Fragment.DaysFragment;
+import com.example.pogoda.Class.Locality;
+import com.example.pogoda.R;
+import com.example.pogoda.Adapter.ViewPagerAdapter;
+import com.example.pogoda.Fragment.WindFragment;
 
 public class WeatherForecastActivity extends AppCompatActivity{
     private ViewPagerAdapter adapter;
     private ViewPager viewPager;
-    private final static int FOR_SIZE = 5;
     private String localityName;
     private int itemIndex;
     private int temperature;
@@ -90,7 +92,22 @@ public class WeatherForecastActivity extends AppCompatActivity{
     {
         Locality locality = new Locality(localityName, getApplicationContext());
         locality.updateWeather();
-        //todo nie aktualizuje sie
+        temperature = locality.getCurrentTemperature();
+        latitude = locality.getLatitude();
+        longitude = locality.getLongitude();
+        pressure = locality.getPressure();
+        description = locality.getWeatherDescription();
+        visibilityInMeters = locality.getVisibilityInMeters();
+        humidity = locality.getHumidity();
+        windSpeed = locality.getWindSpeed();
+        windDegree = locality.getWindDegree();
+
+        for(int i=0; i<FOR_SIZE; i++)
+        {
+            dateFiveDays[i] = locality.getDateFiveDays(i);
+            temperatureFiveDays[i] = locality.getTemperatureFiveDays(i);
+            descriptionFiveDays[i] = locality.getDescriptionFiveDays(i);
+        }
     }
 
     @Override

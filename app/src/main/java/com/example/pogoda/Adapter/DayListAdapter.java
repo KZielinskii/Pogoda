@@ -1,4 +1,4 @@
-package com.example.pogoda;
+package com.example.pogoda.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.pogoda.Class.Day;
+import com.example.pogoda.R;
 
 import java.util.List;
 
@@ -31,7 +34,7 @@ public class DayListAdapter extends ArrayAdapter<Day> {
         TextView dayTempTextView = convertView.findViewById(R.id.dayTemp);
         ImageView weatherIconImageView = convertView.findViewById(R.id.weather_icon);
 
-        dayNameTextView.setText(day.getDayName().substring(0,10));
+        dayNameTextView.setText(day.getDayName().substring(0,16));
         dayTempTextView.setText(day.getDayTemp()+" ℃");
         updateIcon(weatherIconImageView, day);
 

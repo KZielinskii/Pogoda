@@ -1,4 +1,4 @@
-package com.example.pogoda;
+package com.example.pogoda.Adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

@@ -1,4 +1,6 @@
-package com.example.pogoda;
+package com.example.pogoda.Fragment;
+
+import static com.example.pogoda.Class.Locality.FOR_SIZE;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,18 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.pogoda.Class.Day;
+import com.example.pogoda.Adapter.DayListAdapter;
+import com.example.pogoda.R;
 
 import java.util.ArrayList;
 
@@ -56,10 +52,14 @@ public class DaysFragment extends Fragment {
         DayListAdapter adapter = new DayListAdapter(getContext(), array);
         listView.setAdapter(adapter);
 
-        for(int i=0; i<5; i++)
+        for(int i=0; i<FOR_SIZE; i++)
         {
-            Day newDay = new Day(""+dateFiveDays[i], temperatureFiveDays[i], descriptionFiveDays[i]);
-            adapter.add(newDay);
+            if(dateFiveDays[i]!=null)
+            {
+                Day newDay = new Day(""+dateFiveDays[i], temperatureFiveDays[i], descriptionFiveDays[i]);
+                adapter.add(newDay);
+            }
+            else return view;
         }
 
         return view;

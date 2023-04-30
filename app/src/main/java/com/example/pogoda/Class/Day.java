@@ -1,4 +1,4 @@
-package com.example.pogoda;
+package com.example.pogoda.Class;
 
 public class Day {
     private String dayName;

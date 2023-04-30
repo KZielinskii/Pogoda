@@ -1,4 +1,4 @@
-package com.example.pogoda;
+package com.example.pogoda.Activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,11 @@ import android.widget.ListView;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.pogoda.Window.AddLocalityWindow;
+import com.example.pogoda.Adapter.LocalitiesListAdapter;
+import com.example.pogoda.Class.Locality;
+import com.example.pogoda.R;
 
 import java.util.ArrayList;
 import java.util.Map;
