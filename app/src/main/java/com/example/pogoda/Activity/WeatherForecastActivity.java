@@ -113,6 +113,7 @@ public class WeatherForecastActivity extends AppCompatActivity{
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putInt("CURRENT_ITEM", viewPager.getCurrentItem());
         outState.putInt("ITEM_INDEX", itemIndex);
         outState.putInt("TEMPERATURE", temperature);
         outState.putDouble("LATITUDE", latitude);
@@ -144,7 +145,7 @@ public class WeatherForecastActivity extends AppCompatActivity{
         dateFiveDays = savedInstanceState.getStringArray("DATE_FIVE_DAYS");
         temperatureFiveDays = savedInstanceState.getIntArray("TEMPERATURE_FIVE_DAYS");
         descriptionFiveDays = savedInstanceState.getStringArray("DESCRIPTION_FIVE_DAYS");
-        viewPager.setCurrentItem(0);
+        viewPager.setCurrentItem(savedInstanceState.getInt("CURRENT_ITEM", 0));
         adapter.setFragment(0, new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description));
         adapter.setFragment(1, new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree));
         adapter.setFragment(2, new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays));
