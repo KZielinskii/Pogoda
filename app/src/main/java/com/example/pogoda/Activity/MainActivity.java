@@ -23,8 +23,14 @@ import com.example.pogoda.R;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity{
 
+public class MainActivity extends AppCompatActivity{
+    public enum TemperatureUnit {
+        CELSIUS,
+        KELVIN,
+        FAHRENHEIT
+    }
+    public static TemperatureUnit temperatureUnit;
     private static ArrayList<Locality> localities;
     public static LocalitiesListAdapter localitiesListAddapter;
     private ListView listView;
@@ -34,6 +40,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.localities_list);
 
+        temperatureUnit = TemperatureUnit.KELVIN;
         localities = new ArrayList<>();
         addSavedLocalities();
 
@@ -99,7 +106,19 @@ public class MainActivity extends AppCompatActivity{
     private void updateTemperature(TextView textView, int index)
     {
         Locality locality = localities.get(index);
-        textView.setText(locality.getCurrentTemperature()+" ℃");
+        if(temperatureUnit == TemperatureUnit.CELSIUS)
+        {
+            textView.setText(locality.getCurrentTemperature()+" ℃");
+        } else if (temperatureUnit == TemperatureUnit.KELVIN) {
+            int temp = locality.getCurrentTemperature();
+            temp += 273.15;
+            textView.setText(temp +" K");
+        } else if(temperatureUnit == TemperatureUnit.FAHRENHEIT) {
+            int temp = locality.getCurrentTemperature();
+            temp = 2*temp+32;
+            textView.setText(temp +" °F");
+        }
+
     }
 }
 

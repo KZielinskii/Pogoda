@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.pogoda.Activity.MainActivity;
 import com.example.pogoda.Class.Day;
 import com.example.pogoda.R;
 
@@ -35,7 +36,20 @@ public class DayListAdapter extends ArrayAdapter<Day> {
         ImageView weatherIconImageView = convertView.findViewById(R.id.weather_icon);
 
         dayNameTextView.setText(day.getDayName().substring(0,16));
-        dayTempTextView.setText(day.getDayTemp()+" ℃");
+
+        if(MainActivity.temperatureUnit == MainActivity.TemperatureUnit.CELSIUS)
+        {
+            dayTempTextView.setText(day.getDayTemp()+" ℃");
+        } else if (MainActivity.temperatureUnit == MainActivity.TemperatureUnit.KELVIN) {
+            int temp = Integer.parseInt(day.getDayTemp());
+            temp += 273.15;
+            dayTempTextView.setText(temp +" K");
+        } else if(MainActivity.temperatureUnit == MainActivity.TemperatureUnit.FAHRENHEIT) {
+            int temp = Integer.parseInt(day.getDayTemp());
+            temp = 2*temp+32;
+            dayTempTextView.setText(temp +" °F");
+        }
+
         updateIcon(weatherIconImageView, day);
 
         return convertView;

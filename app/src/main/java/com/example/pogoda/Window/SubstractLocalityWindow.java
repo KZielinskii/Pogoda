@@ -39,18 +39,17 @@ public class SubstractLocalityWindow extends DialogFragment
         TextView textView = ll.findViewById(R.id.editText);
         textView.setText(localities.get(index).getName());
 
-        builder.setView(ll).setPositiveButton("Usuń", (dialog, id) ->
-                {
+        builder.setView(ll)
+                .setNegativeButton("Anuluj", (dialog, id) -> dialog.cancel())
+                .setPositiveButton("Usuń", (dialog, id) -> {
                     LocalitiesListAdapter.getLocalities().get(index).deleteFromPreferencesWeather();
                     localities.remove(index);
-
                     MainActivity.localitiesListAddapter.notifyDataSetChanged();
 
                     if (activity != null) {
                         activity.finish();
                     }
-                })
-                .setNegativeButton("Anuluj", (dialog, id) -> dialog.cancel());
+                });
 
         return builder.create();
     }

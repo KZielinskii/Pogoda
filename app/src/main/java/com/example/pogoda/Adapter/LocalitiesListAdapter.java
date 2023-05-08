@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
+import com.example.pogoda.Activity.MainActivity;
 import com.example.pogoda.Activity.WeatherForecastActivity;
 import com.example.pogoda.Class.Locality;
 import com.example.pogoda.R;
@@ -46,7 +47,20 @@ public class LocalitiesListAdapter extends ArrayAdapter<Locality> {
         ImageView icon = itemView.findViewById(R.id.weather_icon);
 
         nameView.setText(locality.getName());
-        parmView.setText(String.valueOf(locality.getCurrentTemperature()+" ℃"));
+
+        if(MainActivity.temperatureUnit == MainActivity.TemperatureUnit.CELSIUS)
+        {
+            parmView.setText(locality.getCurrentTemperature()+" ℃");
+        } else if (MainActivity.temperatureUnit == MainActivity.TemperatureUnit.KELVIN) {
+            int temp = locality.getCurrentTemperature();
+            temp += 273.15;
+            parmView.setText(temp +" K");
+        } else if(MainActivity.temperatureUnit == MainActivity.TemperatureUnit.FAHRENHEIT) {
+            int temp = locality.getCurrentTemperature();
+            temp = 2*temp+32;
+            parmView.setText(temp +" °F");
+        }
+
         updateIcon(icon, position);
 
         LinearLayout listItem = itemView.findViewById(R.id.list_item);

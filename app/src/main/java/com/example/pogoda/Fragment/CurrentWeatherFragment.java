@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.pogoda.Activity.MainActivity;
 import com.example.pogoda.Adapter.LocalitiesListAdapter;
 import com.example.pogoda.R;
 import com.example.pogoda.Window.SubstractLocalityWindow;
@@ -75,7 +76,20 @@ public class CurrentWeatherFragment extends Fragment {
 
         localityTv.setText(this.localityName);
         coordinatesTv.setText(""+this.latitude+"°N   "+this.longitude+"°E");
-        temperatureTv.setText(""+this.temperature+" ℃");
+
+        if(MainActivity.temperatureUnit == MainActivity.TemperatureUnit.CELSIUS)
+        {
+            temperatureTv.setText(this.temperature+" ℃");
+        } else if (MainActivity.temperatureUnit == MainActivity.TemperatureUnit.KELVIN) {
+            int temp = this.temperature;
+            temp += 273.15;
+            temperatureTv.setText(temp +" K");
+        } else if(MainActivity.temperatureUnit == MainActivity.TemperatureUnit.FAHRENHEIT) {
+            int temp = this.temperature;
+            temp = 2*temp+32;
+            temperatureTv.setText(temp +" °F");
+        }
+
         pressureTv.setText(""+this.pressure + " hPa");
 
         String newDescription = "";
