@@ -10,6 +10,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pogoda.Activity.MainActivity;
+import com.example.pogoda.Activity.WeatherForecastActivity;
 import com.example.pogoda.Adapter.LocalitiesListAdapter;
 
 import org.json.JSONArray;
@@ -214,6 +215,11 @@ public class Locality
                             descriptionFiveDays[i] = weather.getJSONObject(0).getString("description");
                         }
                         saveToPreferencesFiveDaysWeather();
+                        if(WeatherForecastActivity.adapter != null)
+                        {
+                            WeatherForecastActivity.refreshData(this);
+                            WeatherForecastActivity.adapter.notifyDataSetChanged();
+                        }
                     } catch (JSONException e)
                     {
                         e.printStackTrace();

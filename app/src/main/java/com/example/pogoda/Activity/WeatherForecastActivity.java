@@ -19,22 +19,22 @@ import com.example.pogoda.Adapter.ViewPagerAdapter;
 import com.example.pogoda.Fragment.WindFragment;
 
 public class WeatherForecastActivity extends AppCompatActivity{
-    private ViewPagerAdapter adapter;
+    public static ViewPagerAdapter adapter;
     private ViewPager viewPager;
     private String localityName;
     private int itemIndex;
-    private int temperature;
-    private double latitude;
-    private double longitude;
-    private double pressure;
-    private String description;
-    private int visibilityInMeters;
-    private int humidity;
-    private int windSpeed;
-    private int windDegree;
-    private String[] dateFiveDays = new String[FOR_SIZE];
-    private int[] temperatureFiveDays = new int[FOR_SIZE];
-    private String[] descriptionFiveDays = new String[FOR_SIZE];
+    private static int temperature;
+    private static double latitude;
+    private static double longitude;
+    private static double pressure;
+    private static String description;
+    private static int visibilityInMeters;
+    private static int humidity;
+    private static int windSpeed;
+    private static int windDegree;
+    private static String[] dateFiveDays = new String[FOR_SIZE];
+    private static int[] temperatureFiveDays = new int[FOR_SIZE];
+    private static String[] descriptionFiveDays = new String[FOR_SIZE];
 
 
     @Override
@@ -92,6 +92,10 @@ public class WeatherForecastActivity extends AppCompatActivity{
     {
         Locality locality = new Locality(localityName, getApplicationContext());
         locality.updateWeather();
+    }
+
+    public static void refreshData(Locality locality)
+    {
         temperature = locality.getCurrentTemperature();
         latitude = locality.getLatitude();
         longitude = locality.getLongitude();
