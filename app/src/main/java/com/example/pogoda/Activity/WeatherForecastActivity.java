@@ -1,9 +1,12 @@
 package com.example.pogoda.Activity;
 
+import static com.example.pogoda.Activity.MainActivity.localitiesListAddapter;
 import static com.example.pogoda.Class.Locality.FOR_SIZE;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -17,6 +20,8 @@ import com.example.pogoda.Class.Locality;
 import com.example.pogoda.R;
 import com.example.pogoda.Adapter.ViewPagerAdapter;
 import com.example.pogoda.Fragment.WindFragment;
+
+import java.util.Objects;
 
 public class WeatherForecastActivity extends AppCompatActivity{
     public static ViewPagerAdapter adapter;
@@ -68,6 +73,7 @@ public class WeatherForecastActivity extends AppCompatActivity{
 
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setCurrentItem(0);
     }
 
@@ -85,7 +91,38 @@ public class WeatherForecastActivity extends AppCompatActivity{
             Toast.makeText(this, "Odświeżono dane dla miejscowości: "+localityName, Toast.LENGTH_SHORT).show();
             return true;
         }
+        if (id == R.id.celsius) {
+            MainActivity.temperatureUnit = MainActivity.TemperatureUnit.CELSIUS;
+            localitiesListAddapter.notifyDataSetChanged();
+            updateViewFragments();
+            Toast.makeText(this, "Zmieniono skale temperatur na: Celsius.", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (id == R.id.fahrenheit) {
+            MainActivity.temperatureUnit = MainActivity.TemperatureUnit.FAHRENHEIT;
+            localitiesListAddapter.notifyDataSetChanged();
+            updateViewFragments();
+            Toast.makeText(this, "Zmieniono skale temperatur na: Fahrenheit.", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (id == R.id.kelvin) {
+            MainActivity.temperatureUnit = MainActivity.TemperatureUnit.KELVIN;
+            localitiesListAddapter.notifyDataSetChanged();
+            updateViewFragments();
+            Toast.makeText(this, "Zmieniono skale temperatur na: Kelvin.", Toast.LENGTH_SHORT).show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateViewFragments() {
+        int currentItem = viewPager.getCurrentItem();
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description));
+        adapter.addFragment(new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree));
+        adapter.addFragment(new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays));
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(currentItem);
     }
 
     private void updateWeather()
@@ -149,12 +186,10 @@ public class WeatherForecastActivity extends AppCompatActivity{
         dateFiveDays = savedInstanceState.getStringArray("DATE_FIVE_DAYS");
         temperatureFiveDays = savedInstanceState.getIntArray("TEMPERATURE_FIVE_DAYS");
         descriptionFiveDays = savedInstanceState.getStringArray("DESCRIPTION_FIVE_DAYS");
-        viewPager.setCurrentItem(savedInstanceState.getInt("CURRENT_ITEM", 0));
+        viewPager.setCurrentItem(savedInstanceState.getInt("CURRENT_ITEM", itemIndex));
         adapter.setFragment(0, new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description));
         adapter.setFragment(1, new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree));
         adapter.setFragment(2, new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays));
     }
 
 }
-
-

@@ -1,5 +1,8 @@
 package com.example.pogoda.Adapter;
 
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -11,9 +14,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter
 {
 
     private final List<Fragment> fragmentList = new ArrayList<>();
+    private FragmentManager fragmentManager;
 
     public ViewPagerAdapter(FragmentManager manager) {
         super(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        this.fragmentManager = manager;
     }
 
     @Override

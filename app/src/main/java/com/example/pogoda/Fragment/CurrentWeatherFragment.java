@@ -141,5 +141,4 @@ public class CurrentWeatherFragment extends Fragment {
         outState.putDouble("pressure", pressure);
         outState.putString("description", description);
     }
-
 }

@@ -67,7 +67,6 @@ public class WindFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
         outState.putString("localityName", localityName);
         outState.putInt("visibilityInMeters", visibilityInMeters);
         outState.putInt("humidity", humidity);

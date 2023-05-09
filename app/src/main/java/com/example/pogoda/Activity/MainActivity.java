@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.localities_list);
 
-        temperatureUnit = TemperatureUnit.KELVIN;
+        temperatureUnit = TemperatureUnit.CELSIUS;
         localities = new ArrayList<>();
         addSavedLocalities();
 
@@ -77,6 +77,24 @@ public class MainActivity extends AppCompatActivity{
         if (id == R.id.action_refresh) {
             updateWeather();
             Toast.makeText(this, "Odświeżono dane.", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (id == R.id.celsius) {
+            temperatureUnit = TemperatureUnit.CELSIUS;
+            localitiesListAddapter.notifyDataSetChanged();
+            Toast.makeText(this, "Zmieniono skale temperatur na: Celsius.", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (id == R.id.fahrenheit) {
+            temperatureUnit = TemperatureUnit.FAHRENHEIT;
+            localitiesListAddapter.notifyDataSetChanged();
+            Toast.makeText(this, "Zmieniono skale temperatur na: Fahrenheit.", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (id == R.id.kelvin) {
+            temperatureUnit = TemperatureUnit.KELVIN;
+            localitiesListAddapter.notifyDataSetChanged();
+            Toast.makeText(this, "Zmieniono skale temperatur na: Kelvin.", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -118,7 +136,6 @@ public class MainActivity extends AppCompatActivity{
             temp = 2*temp+32;
             textView.setText(temp +" °F");
         }
-
     }
 }
 
