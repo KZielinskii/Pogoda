@@ -53,7 +53,8 @@ public class WeatherForecastActivity extends AppCompatActivity{
         }
         else
         {
-            setContentView(R.layout.activity_details);
+            setContentView(R.layout.activity_details_2);
+            
         }
 
 
