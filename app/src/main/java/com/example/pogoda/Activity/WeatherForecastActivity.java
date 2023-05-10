@@ -13,6 +13,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.pogoda.Fragment.CurrentWeatherFragment;
@@ -47,18 +48,6 @@ public class WeatherForecastActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-        {
-            setContentView(R.layout.activity_details);
-        }
-        else
-        {
-            setContentView(R.layout.activity_details_2);
-            
-        }
-
-
-
         localityName = getIntent().getStringExtra("locality_name");
         itemIndex = getIntent().getIntExtra("item_index", -1);
         temperature = getIntent().getIntExtra("temperature",0);
@@ -78,15 +67,30 @@ public class WeatherForecastActivity extends AppCompatActivity{
             descriptionFiveDays[i] = getIntent().getStringExtra("five_days_description_"+i);
         }
 
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description));
-        adapter.addFragment(new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree));
-        adapter.addFragment(new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays));
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+        {
+            setContentView(R.layout.activity_details);
 
-        viewPager = findViewById(R.id.viewPager);
-        viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.setCurrentItem(0);
+            adapter = new ViewPagerAdapter(getSupportFragmentManager());
+            adapter.addFragment(new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description));
+            adapter.addFragment(new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree));
+            adapter.addFragment(new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays));
+
+            viewPager = findViewById(R.id.viewPager);
+            viewPager.setAdapter(adapter);
+            viewPager.setOffscreenPageLimit(2);
+            viewPager.setCurrentItem(0);
+        }
+        else
+        {
+            setContentView(R.layout.activity_details_2);
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.flFragment1, new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description))
+                    .add(R.id.flFragment2, new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree))
+                    .add(R.id.flFragment3, new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays))
+                    .commit();
+        }
     }
 
     @Override
@@ -128,13 +132,21 @@ public class WeatherForecastActivity extends AppCompatActivity{
     }
 
     private void updateViewFragments() {
-        int currentItem = viewPager.getCurrentItem();
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description));
-        adapter.addFragment(new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree));
-        adapter.addFragment(new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays));
-        viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(currentItem);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+        {
+            int currentItem = viewPager.getCurrentItem();
+            adapter = new ViewPagerAdapter(getSupportFragmentManager());
+            adapter.addFragment(new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description));
+            adapter.addFragment(new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree));
+            adapter.addFragment(new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays));
+            viewPager.setAdapter(adapter);
+            viewPager.setCurrentItem(currentItem);
+        }
+        else
+        {
+
+        }
+
     }
 
     private void updateWeather()
@@ -166,7 +178,7 @@ public class WeatherForecastActivity extends AppCompatActivity{
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("CURRENT_ITEM", viewPager.getCurrentItem());
+        if(viewPager!=null) outState.putInt("CURRENT_ITEM", viewPager.getCurrentItem());
         outState.putInt("ITEM_INDEX", itemIndex);
         outState.putInt("TEMPERATURE", temperature);
         outState.putDouble("LATITUDE", latitude);
@@ -198,7 +210,7 @@ public class WeatherForecastActivity extends AppCompatActivity{
         dateFiveDays = savedInstanceState.getStringArray("DATE_FIVE_DAYS");
         temperatureFiveDays = savedInstanceState.getIntArray("TEMPERATURE_FIVE_DAYS");
         descriptionFiveDays = savedInstanceState.getStringArray("DESCRIPTION_FIVE_DAYS");
-        viewPager.setCurrentItem(savedInstanceState.getInt("CURRENT_ITEM", itemIndex));
+        if(viewPager!=null) viewPager.setCurrentItem(savedInstanceState.getInt("CURRENT_ITEM", 0));
         adapter.setFragment(0, new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description));
         adapter.setFragment(1, new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree));
         adapter.setFragment(2, new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays));
