@@ -57,11 +57,6 @@ public class Locality
         return currentTemperature;
     }
 
-    public int getCoutFiveDaysData()
-    {
-        return coutFiveDaysData;
-    }
-
     public boolean getIsSunny()
     {
         return isSunny;
@@ -172,6 +167,7 @@ public class Locality
                     if (error instanceof NetworkError)
                     {
                         readFromPreferencesOneWeather();
+                        readFromPreferencesFiveDaysWeather();
                         Toast.makeText(context, "Dane mogą być nieaktualne.\n (Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
                     } else if (error.networkResponse != null && error.networkResponse.statusCode == 404)
                     {
@@ -180,9 +176,10 @@ public class Locality
                         MainActivity.localitiesListAddapter.notifyDataSetChanged();
                     } else
                     {
-                        Toast.makeText(context, "Wystąpił błąd: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        readFromPreferencesOneWeather();
+                        readFromPreferencesFiveDaysWeather();
+                        Toast.makeText(context, "Dane mogą być nieaktualne.\n (Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
                     }
-                    readFromPreferencesOneWeather();
                 });
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -242,7 +239,7 @@ public class Locality
                         Toast.makeText(context, "Podano niepoprawną nazwę lokalizacji!", Toast.LENGTH_SHORT).show();
                     } else
                     {
-                        Toast.makeText(context, "Wystąpił błąd: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Dane mogą być nieaktualne.\n (Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
                     }
                     readFromPreferencesFiveDaysWeather();
                 });

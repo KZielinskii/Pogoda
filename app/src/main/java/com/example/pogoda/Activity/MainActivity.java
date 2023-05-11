@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
@@ -22,6 +23,8 @@ import com.example.pogoda.R;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity{
     private static ArrayList<Locality> localities;
     public static LocalitiesListAdapter localitiesListAddapter;
     private ListView listView;
+    private Timer timer;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +80,6 @@ public class MainActivity extends AppCompatActivity{
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
             updateWeather();
-            Toast.makeText(this, "Odświeżono dane.", Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.celsius) {
@@ -135,6 +138,43 @@ public class MainActivity extends AppCompatActivity{
             int temp = locality.getCurrentTemperature();
             temp = 2*temp+32;
             textView.setText(temp +" °F");
+        }
+    }
+
+    private void startAutoRefresh() {
+        timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Handler handler = new Handler(getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateWeather();
+                    }
+                });
+            }
+        };
+
+        timer.schedule(task, 6 * 1000, 6 * 1000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startAutoRefresh();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopTimer();
+    }
+
+    private void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
         }
     }
 }

@@ -48,7 +48,7 @@ public class DayListAdapter extends ArrayAdapter<Day> {
         LocalDate today = LocalDate.now();
         if (date.isEqual(today))
         {
-            dateView = "Dziś: "+ dateString.substring(11,16);
+            dateView = "Dziś: ";
         } else
         {
             String dayOfWeekString = date.getDayOfWeek().name();
