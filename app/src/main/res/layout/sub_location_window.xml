@@ -9,8 +9,9 @@
         android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/min_size"
         android:text="@string/sub"
-        android:padding="7dp"/>
+        android:padding="8dp"/>
 
     <TextView
         android:id="@+id/editText"
@@ -18,7 +19,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/location"
-        android:textSize="24sp"
+        android:textSize="@dimen/normal_size"
         android:textColor="#BB5555"
         android:textStyle="bold"
         android:padding="8dp"/>

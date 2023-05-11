@@ -215,11 +215,17 @@ public class Locality
                             descriptionFiveDays[i] = weather.getJSONObject(0).getString("description");
                         }
                         saveToPreferencesFiveDaysWeather();
-                        if(WeatherForecastActivity.adapter != null)
+                        if(WeatherForecastActivity.adapter != null && !WeatherForecastActivity.isRotated)
                         {
                             WeatherForecastActivity.refreshData(this);
                             WeatherForecastActivity.adapter.notifyDataSetChanged();
                         }
+                        if(WeatherForecastActivity.daysFragment != null && WeatherForecastActivity.isRotated)
+                        {
+                            WeatherForecastActivity.refreshData(this);
+                            WeatherForecastActivity.updateViewRotatedFragment();
+                        }
+
                     } catch (JSONException e)
                     {
                         e.printStackTrace();

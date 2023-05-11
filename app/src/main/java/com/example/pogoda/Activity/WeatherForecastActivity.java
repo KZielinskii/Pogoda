@@ -6,6 +6,7 @@ import static com.example.pogoda.Class.Locality.FOR_SIZE;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -27,9 +28,14 @@ import java.util.Objects;
 
 public class WeatherForecastActivity extends AppCompatActivity{
     public static ViewPagerAdapter adapter;
+    public static FragmentManager fragmentManager;
+    public static Fragment currentWeatherFragment;
+    public static Fragment windFragment;
+    public static Fragment daysFragment;
+    public static boolean isRotated;
     private ViewPager viewPager;
-    private String localityName;
-    private int itemIndex;
+    private static String localityName;
+    private static int itemIndex;
     private static int temperature;
     private static double latitude;
     private static double longitude;
@@ -67,7 +73,8 @@ public class WeatherForecastActivity extends AppCompatActivity{
             descriptionFiveDays[i] = getIntent().getStringExtra("five_days_description_"+i);
         }
 
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+        isRotated= getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT;
+        if(!isRotated)
         {
             setContentView(R.layout.activity_details);
 
@@ -84,12 +91,8 @@ public class WeatherForecastActivity extends AppCompatActivity{
         else
         {
             setContentView(R.layout.activity_details_2);
-
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.flFragment1, new CurrentWeatherFragment(localityName, getSupportFragmentManager(), itemIndex, temperature, latitude, longitude, pressure, description))
-                    .add(R.id.flFragment2, new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree))
-                    .add(R.id.flFragment3, new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays))
-                    .commit();
+            fragmentManager = getSupportFragmentManager();
+            updateViewRotatedFragment();
         }
     }
 
@@ -131,8 +134,37 @@ public class WeatherForecastActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    public static void updateViewRotatedFragment()
+    {
+        currentWeatherFragment = fragmentManager.findFragmentById(R.id.flFragment1);
+        if (currentWeatherFragment != null) {
+            fragmentManager.beginTransaction().remove(currentWeatherFragment).commit();
+        }
+
+        windFragment = fragmentManager.findFragmentById(R.id.flFragment2);
+        if (windFragment != null) {
+            fragmentManager.beginTransaction().remove(windFragment).commit();
+        }
+
+        daysFragment = fragmentManager.findFragmentById(R.id.flFragment3);
+        if (daysFragment != null) {
+            fragmentManager.beginTransaction().remove(daysFragment).commit();
+        }
+
+        currentWeatherFragment = new CurrentWeatherFragment(localityName, fragmentManager, itemIndex, temperature, latitude, longitude, pressure, description);
+        windFragment = new WindFragment(localityName, visibilityInMeters, humidity, windSpeed, windDegree);
+        daysFragment = new DaysFragment(localityName, dateFiveDays, temperatureFiveDays, descriptionFiveDays);
+        if(!fragmentManager.isDestroyed()) fragmentManager.beginTransaction()
+                .add(R.id.flFragment1, currentWeatherFragment)
+                .add(R.id.flFragment2, windFragment)
+                .add(R.id.flFragment3, daysFragment)
+                .commit();
+    }
+
     private void updateViewFragments() {
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+
+        isRotated= getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT;
+        if(!isRotated)
         {
             int currentItem = viewPager.getCurrentItem();
             adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -144,9 +176,10 @@ public class WeatherForecastActivity extends AppCompatActivity{
         }
         else
         {
-
+            setContentView(R.layout.activity_details_2);
+            fragmentManager = getSupportFragmentManager();
+            updateViewRotatedFragment();
         }
-
     }
 
     private void updateWeather()

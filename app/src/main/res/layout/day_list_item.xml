@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/list_item"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="@dimen/item_size"
     android:layout_weight="0.25"
     android:orientation="horizontal"
     android:padding="5dp"
@@ -11,13 +11,23 @@
     android:focusable="true">
 
     <TextView
-        android:id="@+id/dayName"
+        android:id="@+id/dataName"
         android:gravity="start|center"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
         android:text=""
-        android:textSize="24sp"
+        android:textSize="@dimen/day_item_size"
+        android:paddingStart="10dp"/>
+
+    <TextView
+        android:id="@+id/hourName"
+        android:gravity="start|center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:text=""
+        android:textSize="@dimen/day_item_size"
         android:paddingStart="10dp"/>
 
     <TextView
@@ -27,7 +37,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0.5"
         android:text=""
-        android:textSize="24sp"
+        android:textSize="@dimen/day_item_size"
         />
 
     <ImageView

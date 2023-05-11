@@ -12,6 +12,9 @@ import com.example.pogoda.Activity.MainActivity;
 import com.example.pogoda.Class.Day;
 import com.example.pogoda.R;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class DayListAdapter extends ArrayAdapter<Day> {
@@ -26,16 +29,40 @@ public class DayListAdapter extends ArrayAdapter<Day> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
         Day day = getItem(position);
-        if (convertView == null) {
+        if (convertView == null)
+        {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.day_list_item, parent, false);
         }
-        TextView dayNameTextView = convertView.findViewById(R.id.dayName);
+        TextView dataNameTextView = convertView.findViewById(R.id.dataName);
+        TextView hourNameTextView = convertView.findViewById(R.id.hourName);
         TextView dayTempTextView = convertView.findViewById(R.id.dayTemp);
         ImageView weatherIconImageView = convertView.findViewById(R.id.weather_icon);
 
-        dayNameTextView.setText(day.getDayName().substring(0,16));
+        String dateView = "";
+        String dateString = day.getDayName().substring(0, 16);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDate date = LocalDate.parse(dateString, formatter);
+        LocalDate today = LocalDate.now();
+        if (date.isEqual(today))
+        {
+            dateView = "Dziś: "+ dateString.substring(11,16);
+        } else
+        {
+            String dayOfWeekString = date.getDayOfWeek().name();
+            if(dayOfWeekString.equals("MONDAY")) dateView = "Poniedziałek: ";
+            if(dayOfWeekString.equals("TUESDAY")) dateView = "Wtorek: ";
+            if(dayOfWeekString.equals("WEDNESDAY")) dateView = "Środa: ";
+            if(dayOfWeekString.equals("THURSDAY")) dateView = "Czwartek: ";
+            if(dayOfWeekString.equals("FRIDAY")) dateView = "Piątek: ";
+            if(dayOfWeekString.equals("SATURDAY")) dateView = "Sobota: ";
+            if(dayOfWeekString.equals("SUNDAY")) dateView = "Niedziela: ";
+
+        }
+        hourNameTextView.setText(dateString.substring(11,16));
+        dataNameTextView.setText(dateView);
 
         if(MainActivity.temperatureUnit == MainActivity.TemperatureUnit.CELSIUS)
         {

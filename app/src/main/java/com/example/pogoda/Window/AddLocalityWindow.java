@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -32,23 +34,34 @@ public class AddLocalityWindow extends DialogFragment
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.add_location_window, null);
         EditText editText = ll.findViewById(R.id.editText);
 
-        builder.setView(ll).setPositiveButton("Dodaj", (dialog, id) ->
-                {
+        builder.setView(ll)
+                .setPositiveButton("Dodaj", (dialog, id) -> {
                     String newLocality = editText.getText().toString();
                     localities.add(new Locality(newLocality, context));
                 })
                 .setNegativeButton("Anuluj", (dialog, id) -> dialog.cancel());
 
-        return builder.create();
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        Button positiveButton = dialog.getButton(Dialog.BUTTON_POSITIVE);
+        Button negativeButton = dialog.getButton(Dialog.BUTTON_NEGATIVE);
+
+        int buttonSize = getResources().getDimensionPixelSize(R.dimen.min_size);
+        positiveButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonSize);
+        negativeButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonSize);
+
+        return dialog;
     }
+
+
 
     private boolean isValidLocality(String locality) {
         String start = "https://api.openweathermap.org/data/2.5/weather?q=";

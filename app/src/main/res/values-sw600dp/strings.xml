@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Pogoda</string>
+    <string name="locations">Miejscowości:</string>
+    <string name="location">Miejscowość:</string>
+    <string name="add">Dodaj miejscowość:</string>
+    <string name="search_title">Pogoda</string>
+    <string name="refresh">Odśwież</string>
+    <string name="temperature">Temperatura:</string>
+    <string name="localityName">Nazwa miejscowości:</string>
+    <string name="coordinates">Współrzędne geograficzne:</string>
+    <string name="pressure">Ciśnienie:</string>
+    <string name="delete">Usuń</string>
+    <string name="current_weather">Aktualna pogoda</string>
+    <string name="description">Opis:</string>
+    <string name="humidity">Wilgotność:</string>
+    <string name="visibility">Widoczność:</string>
+    <string name="wind_speed">Prętkość wiatru:</string>
+    <string name="wind_deg">Kierunek wiatru:</string>
+    <string name="other_info">Dodat. inf.</string>
+    <string name="upcoming_days">5 dni</string>
+    <string name="sub">Czy na pewno chcesz usunąć miejscowość:</string>
+</resources>

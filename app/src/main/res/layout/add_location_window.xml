@@ -9,13 +9,15 @@
         android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/normal_size"
         android:text="@string/add"
-        android:padding="7dp"/>
+        android:padding="8dp"/>
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/normal_size"
         android:inputType="text"
         android:padding="8dp"/>
 
