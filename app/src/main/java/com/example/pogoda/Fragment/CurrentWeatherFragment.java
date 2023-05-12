@@ -99,20 +99,25 @@ public class CurrentWeatherFragment extends Fragment {
             weatherIconTv.setImageResource(R.drawable.ic_sun);
             newDescription += "Słonecznie\n";
         }
+        else if(description.contains("thunderstorm"))
+        {
+            weatherIconTv.setImageResource(R.drawable.ic_rain);
+            newDescription += "Burza\n";
+        }
         else if(description.contains("rain"))
         {
             weatherIconTv.setImageResource(R.drawable.ic_rain);
             newDescription += "Pada\n";
         }
-        else if(description.contains("clouds"))
-        {
-            weatherIconTv.setImageResource(R.drawable.ic_sun_cloud);
-            newDescription += "Lekkie zachmurzenie\n";
-        }
         else if(description.contains("overcast clouds"))
         {
             weatherIconTv.setImageResource(R.drawable.ic_cloud);
             newDescription += "Całkowite zachmurzenie\n";
+        }
+        else if(description.contains("clouds"))
+        {
+            weatherIconTv.setImageResource(R.drawable.ic_sun_cloud);
+            newDescription += "Lekkie zachmurzenie\n";
         }
         else if(description.contains("snow"))
         {
