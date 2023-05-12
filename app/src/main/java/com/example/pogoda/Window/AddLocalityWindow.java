@@ -47,6 +47,7 @@ public class AddLocalityWindow extends DialogFragment
         builder.setView(ll)
                 .setPositiveButton("Dodaj", (dialog, id) -> {
                     String newLocality = editText.getText().toString();
+                    newLocality = newLocality.trim();
 
                     ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
