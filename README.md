@@ -43,13 +43,16 @@ Projekt składa się z kilku kluczowych modułów:
 
 ### Strona główna:
 <img src="https://github.com/KZielinskii/Pogoda/assets/58587948/74513b29-c541-488e-93e7-c4c9e9198f13" width="400" alt="Screenshot">
+
 ### Dodawanie miejscowści:
 <img src="https://github.com/KZielinskii/Pogoda/assets/58587948/fb85728f-a370-420e-b68f-1f490b9d6da7" width="400" alt="Screenshot">
 <img src="https://github.com/KZielinskii/Pogoda/assets/58587948/75cc52f2-f94a-4e92-b36f-2d02c213cfed" width="400" alt="Screenshot">
+
 ### Ekran pogody miejscowości:
 <img src="https://github.com/KZielinskii/Pogoda/assets/58587948/6fa9e573-b82a-40f7-831d-16a1524d9960" width="400" alt="Screenshot">
 <img src="https://github.com/KZielinskii/Pogoda/assets/58587948/dd7b87a8-acdf-4136-8e35-29ee3c34ed0d" width="400" alt="Screenshot">
 <img src="https://github.com/KZielinskii/Pogoda/assets/58587948/e2c1e961-2d91-47f9-8299-1518a6224fd0" width="400" alt="Screenshot">
+
 ### Zmiana jednostek:
 <img src="https://github.com/KZielinskii/Pogoda/assets/58587948/f30edbde-eba0-4c79-b859-2843c6300aa8" width="400" alt="Screenshot">
 
