@@ -39,6 +39,8 @@ Projekt składa się z kilku kluczowych modułów:
 • Baza_Danych: Zapewnia mechanizmy przechowywania ulubionych lokalizacji w bazie danych.
 
 ## Wygląd aplikacji:
+<img src="https://github.com/KZielinskii/Pogoda/assets/58587948/f30edbde-eba0-4c79-b859-2843c6300aa8" width="400" alt="Screenshot">
+
 ### Strona główna:
 ![Screenshot_2023-12-17-22-48-58-08_e2a8ad7d5d0bba5df8045270f51053db](https://github.com/KZielinskii/Pogoda/assets/58587948/74513b29-c541-488e-93e7-c4c9e9198f13)
 ### Dodawanie miejsco![Screenshot_2023-12-17-22-49-05-59_e2a8ad7d5d0bba5df8045270f51053db](https://github.com/KZielinskii/Pogoda/assets/58587948/fb85728f-a370-420e-b68f-1f490b9d6da7)
