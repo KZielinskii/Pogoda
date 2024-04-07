@@ -52,7 +52,7 @@ public class AddLocalityWindow extends DialogFragment
                     NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                     boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
                     if(isConnected) localities.add(new Locality(newLocality, context));
-                    else Toast.makeText(context, "Nie można dodać lokalizacji.\n (Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(context, "Nie można dodać lokalizacji.\n(Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
                 })
                 .setNegativeButton("Anuluj", (dialog, id) -> dialog.cancel());
 
