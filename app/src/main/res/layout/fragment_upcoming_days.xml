@@ -9,7 +9,7 @@
         android:id="@+id/locality"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="@string/name"
         android:textSize="@dimen/big_size"
         android:textStyle="bold"
         android:textColor="@color/black"
