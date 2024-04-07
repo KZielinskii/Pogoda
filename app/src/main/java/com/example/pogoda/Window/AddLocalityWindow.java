@@ -14,21 +14,19 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.pogoda.Class.Locality;
 import com.example.pogoda.R;
 
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 
 public class AddLocalityWindow extends DialogFragment
 {
-    private ArrayList<Locality> localities;
-    private Context context;
+    private final ArrayList<Locality> localities;
+    private final Context context;
 
     public AddLocalityWindow(ArrayList<Locality> localities, Context context)
     {
@@ -36,6 +34,7 @@ public class AddLocalityWindow extends DialogFragment
         this.context = context;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -53,7 +52,7 @@ public class AddLocalityWindow extends DialogFragment
                     NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                     boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
                     if(isConnected) localities.add(new Locality(newLocality, context));
-                    else Toast.makeText(context, "Nie można dodać lokalizacji.\n (Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(context, "Nie można dodać lokalizacji.\n(Sprawdź połączenie z internetem!)", Toast.LENGTH_SHORT).show();
                 })
                 .setNegativeButton("Anuluj", (dialog, id) -> dialog.cancel());
 
@@ -69,21 +68,4 @@ public class AddLocalityWindow extends DialogFragment
 
         return dialog;
     }
-
-
-
-    private boolean isValidLocality(String locality) {
-        String start = "https://api.openweathermap.org/data/2.5/weather?q=";
-        String end = "&appid=bc170ec055ab5eb458be802e3683e686&units=metric";
-        String url = start + locality + end;
-
-        try {
-            URLConnection connection = new URL(url).openConnection();
-            connection.connect();
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
 }

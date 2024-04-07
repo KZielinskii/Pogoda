@@ -19,4 +19,6 @@
     <string name="other_info">Dodat. inf.</string>
     <string name="upcoming_days">5 dni</string>
     <string name="sub">Czy na pewno chcesz usunąć miejscowość:</string>
+    <string name="name">Name</string>
+    <string name="enter_city_name">Wprowadź nazwę miejscowości</string>
 </resources>

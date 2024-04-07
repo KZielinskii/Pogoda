@@ -1,7 +1,9 @@
 package com.example.pogoda.Fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -41,8 +43,9 @@ public class CurrentWeatherFragment extends Fragment {
         this.fragmentManager = supportFragmentManager;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             localityName = savedInstanceState.getString("localityName");
@@ -64,14 +67,11 @@ public class CurrentWeatherFragment extends Fragment {
         ImageView weatherIconTv = view.findViewById(R.id.weather_icon);
 
         Button deleteButton = view.findViewById(R.id.delete_button);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        deleteButton.setOnClickListener(v -> {
 
-                SubstractLocalityWindow dialogFragment = new SubstractLocalityWindow(LocalitiesListAdapter.getLocalities(), index, getActivity());
-                dialogFragment.show(fragmentManager, "show_sub_window_dialog");
+            SubstractLocalityWindow dialogFragment = new SubstractLocalityWindow(LocalitiesListAdapter.getLocalities(), index, getActivity());
+            dialogFragment.show(fragmentManager, "show_sub_window_dialog");
 
-            }
         });
 
         localityTv.setText(this.localityName);
@@ -136,7 +136,7 @@ public class CurrentWeatherFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("localityName", localityName);
         outState.putInt("index", index);
