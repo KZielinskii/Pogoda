@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_item"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_size_2"
@@ -18,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_size"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="NestedWeights">
 
             <TextView
                 android:id="@+id/dataName"
@@ -27,7 +29,9 @@
                 android:text=""
                 android:textSize="@dimen/day_item_size"
                 android:paddingStart="10dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/hourName"
@@ -36,7 +40,9 @@
                 android:text=""
                 android:textSize="@dimen/day_item_size"
                 android:textStyle="bold"
-                android:paddingStart="10dp" />
+                android:textColor="@color/black"
+                android:paddingStart="10dp"
+                tools:ignore="RtlSymmetry" />
 
         </LinearLayout>
 
@@ -59,6 +65,7 @@
         android:text=""
         android:textSize="@dimen/normal_size"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:gravity="center"/>
 
     <ImageView
@@ -68,6 +75,8 @@
         android:layout_weight="0.4"
         android:src="@mipmap/ic_cloud"
         android:text=""
-        android:paddingEnd="10dp" />
+        android:paddingEnd="10dp"
+        tools:ignore="RtlSymmetry"
+        android:contentDescription="TODO" />
 
 </LinearLayout>
