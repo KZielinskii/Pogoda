@@ -156,7 +156,7 @@ public class Locality
                         isRaining = weatherDescription.contains("rain");
 
                         saveToPreferencesOneWeather();
-                        MainActivity.localitiesListAddapter.notifyDataSetChanged();
+                        MainActivity.localitiesListAdapter.notifyDataSetChanged();
                     } catch (JSONException e)
                     {
                         e.printStackTrace();
@@ -173,7 +173,7 @@ public class Locality
                     {
                         Toast.makeText(context, "Podano niepoprawną nazwę lokalizacji!", Toast.LENGTH_SHORT).show();
                         LocalitiesListAdapter.getLocalities().remove(this);
-                        MainActivity.localitiesListAddapter.notifyDataSetChanged();
+                        MainActivity.localitiesListAdapter.notifyDataSetChanged();
                     } else
                     {
                         readFromPreferencesOneWeather();

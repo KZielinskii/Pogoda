@@ -3,6 +3,7 @@ package com.example.pogoda.Activity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -35,9 +36,12 @@ public class MainActivity extends AppCompatActivity{
     }
     public static TemperatureUnit temperatureUnit;
     private static ArrayList<Locality> localities;
-    public static LocalitiesListAdapter localitiesListAddapter;
+    @SuppressLint("StaticFieldLeak")
+    public static LocalitiesListAdapter localitiesListAdapter;
     private ListView listView;
     private Timer timer;
+    public static final int DATA_REFRESH_DELAY = 60 * 1000;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +52,9 @@ public class MainActivity extends AppCompatActivity{
         localities = new ArrayList<>();
         addSavedLocalities();
 
-        localitiesListAddapter = new LocalitiesListAdapter(this, localities);
+        localitiesListAdapter = new LocalitiesListAdapter(this, localities);
         ListView listView = findViewById(R.id.localities_list);
-        listView.setAdapter(localitiesListAddapter);
+        listView.setAdapter(localitiesListAdapter);
 
         ImageButton addLocalities = findViewById(R.id.imageButton);
 
@@ -84,19 +88,19 @@ public class MainActivity extends AppCompatActivity{
         }
         if (id == R.id.celsius) {
             temperatureUnit = TemperatureUnit.CELSIUS;
-            localitiesListAddapter.notifyDataSetChanged();
+            localitiesListAdapter.notifyDataSetChanged();
             Toast.makeText(this, "Zmieniono skale temperatur na: Celsius.", Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.fahrenheit) {
             temperatureUnit = TemperatureUnit.FAHRENHEIT;
-            localitiesListAddapter.notifyDataSetChanged();
+            localitiesListAdapter.notifyDataSetChanged();
             Toast.makeText(this, "Zmieniono skale temperatur na: Fahrenheit.", Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.kelvin) {
             temperatureUnit = TemperatureUnit.KELVIN;
-            localitiesListAddapter.notifyDataSetChanged();
+            localitiesListAdapter.notifyDataSetChanged();
             Toast.makeText(this, "Zmieniono skale temperatur na: Kelvin.", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity{
             updateTemperature(temp, i);
             updateIcon(icon,i);
         }
-        localitiesListAddapter.notifyDataSetChanged();
+        localitiesListAdapter.notifyDataSetChanged();
     }
 
     private void updateIcon(ImageView icon, int index) {
@@ -132,6 +136,7 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateTemperature(TextView textView, int index)
     {
         Locality locality = localities.get(index);
@@ -155,16 +160,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void run() {
                 Handler handler = new Handler(getMainLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateWeather();
-                    }
-                });
+                handler.post(() -> updateWeather());
             }
         };
 
-        timer.schedule(task, 60 * 1000, 60 * 1000);
+        timer.schedule(task, DATA_REFRESH_DELAY, DATA_REFRESH_DELAY);
     }
 
     @Override

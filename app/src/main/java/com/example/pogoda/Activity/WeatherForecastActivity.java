@@ -1,20 +1,18 @@
 package com.example.pogoda.Activity;
 
-import static com.example.pogoda.Activity.MainActivity.localitiesListAddapter;
+import static com.example.pogoda.Activity.MainActivity.localitiesListAdapter;
 import static com.example.pogoda.Class.Locality.FOR_SIZE;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.pogoda.Fragment.CurrentWeatherFragment;
@@ -23,8 +21,6 @@ import com.example.pogoda.Class.Locality;
 import com.example.pogoda.R;
 import com.example.pogoda.Adapter.ViewPagerAdapter;
 import com.example.pogoda.Fragment.WindFragment;
-
-import java.util.Objects;
 
 public class WeatherForecastActivity extends AppCompatActivity{
     public static ViewPagerAdapter adapter;
@@ -112,21 +108,21 @@ public class WeatherForecastActivity extends AppCompatActivity{
         }
         if (id == R.id.celsius) {
             MainActivity.temperatureUnit = MainActivity.TemperatureUnit.CELSIUS;
-            localitiesListAddapter.notifyDataSetChanged();
+            localitiesListAdapter.notifyDataSetChanged();
             updateViewFragments();
             Toast.makeText(this, "Zmieniono skale temperatur na: Celsius.", Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.fahrenheit) {
             MainActivity.temperatureUnit = MainActivity.TemperatureUnit.FAHRENHEIT;
-            localitiesListAddapter.notifyDataSetChanged();
+            localitiesListAdapter.notifyDataSetChanged();
             updateViewFragments();
             Toast.makeText(this, "Zmieniono skale temperatur na: Fahrenheit.", Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.kelvin) {
             MainActivity.temperatureUnit = MainActivity.TemperatureUnit.KELVIN;
-            localitiesListAddapter.notifyDataSetChanged();
+            localitiesListAdapter.notifyDataSetChanged();
             updateViewFragments();
             Toast.makeText(this, "Zmieniono skale temperatur na: Kelvin.", Toast.LENGTH_SHORT).show();
             return true;

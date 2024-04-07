@@ -2,12 +2,10 @@ package com.example.pogoda.Window;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,7 +46,7 @@ public class SubstractLocalityWindow extends DialogFragment
                 {
                     LocalitiesListAdapter.getLocalities().get(index).deleteFromPreferencesWeather();
                     localities.remove(index);
-                    MainActivity.localitiesListAddapter.notifyDataSetChanged();
+                    MainActivity.localitiesListAdapter.notifyDataSetChanged();
 
                     if (activity != null)
                     {
