@@ -3,6 +3,7 @@ package com.example.pogoda.Activity;
 import static com.example.pogoda.Activity.MainActivity.localitiesListAdapter;
 import static com.example.pogoda.Class.Locality.FOR_SIZE;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -205,7 +206,7 @@ public class WeatherForecastActivity extends AppCompatActivity{
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if(viewPager!=null) outState.putInt("CURRENT_ITEM", viewPager.getCurrentItem());
         outState.putInt("ITEM_INDEX", itemIndex);

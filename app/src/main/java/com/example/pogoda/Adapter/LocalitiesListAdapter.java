@@ -1,5 +1,6 @@
 package com.example.pogoda.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -23,14 +24,13 @@ import java.util.ArrayList;
 
 public class LocalitiesListAdapter extends ArrayAdapter<Locality> {
     private static ArrayList<Locality> localities;
-    private Context context;
 
     public LocalitiesListAdapter(Context context, ArrayList<Locality> localities) {
         super(context, 0, localities);
-        this.localities = localities;
-        this.context = context;
+        LocalitiesListAdapter.localities = localities;
     }
 
+    @SuppressLint("SetTextI18n")
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

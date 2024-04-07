@@ -21,8 +21,8 @@ import org.json.JSONObject;
 public class Locality
 {
     public static final int FOR_SIZE = 64;
-    private int coutFiveDaysData;
-    private Context context;
+    private int countFiveDaysData;
+    private final Context context;
     private final String name;
     private int currentTemperature;
     private boolean isSunny;
@@ -35,9 +35,9 @@ public class Locality
     private int humidity;
     private int windSpeed;
     private int windDegree;
-    private String[] dateFiveDays = new String[FOR_SIZE];
-    private int[] temperatureFiveDays = new int[FOR_SIZE];
-    private String[] descriptionFiveDays = new String[FOR_SIZE];
+    private final String[] dateFiveDays = new String[FOR_SIZE];
+    private final int[] temperatureFiveDays = new int[FOR_SIZE];
+    private final String[] descriptionFiveDays = new String[FOR_SIZE];
 
     public Locality(String name, Context context)
     {
@@ -198,8 +198,8 @@ public class Locality
                     try
                     {
                         JSONArray forecasts = response.getJSONArray("list");
-                        coutFiveDaysData = forecasts.length();
-                        for (int i = 0; i < coutFiveDaysData; i++)
+                        countFiveDaysData = forecasts.length();
+                        for (int i = 0; i < countFiveDaysData; i++)
                         {
                             JSONObject forecast = forecasts.getJSONObject(i);
                             JSONObject main = forecast.getJSONObject("main");

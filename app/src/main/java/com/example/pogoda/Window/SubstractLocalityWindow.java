@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -21,15 +22,16 @@ import java.util.ArrayList;
 
 public class SubstractLocalityWindow extends DialogFragment
 {
-    private ArrayList<Locality> localities;
-    private int index;
-    private FragmentActivity activity;
+    private final ArrayList<Locality> localities;
+    private final int index;
+    private final FragmentActivity activity;
     public SubstractLocalityWindow(ArrayList<Locality> localities, int index, FragmentActivity activity)
     {
         this.localities = localities;
         this.index = index;
         this.activity = activity;
     }
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
