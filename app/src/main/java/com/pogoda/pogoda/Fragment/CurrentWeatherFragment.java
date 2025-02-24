@@ -101,7 +101,7 @@ public class CurrentWeatherFragment extends Fragment {
         }
         else if(description.contains("thunderstorm"))
         {
-            weatherIconTv.setImageResource(R.drawable.ic_rain);
+            weatherIconTv.setImageResource(R.drawable.ic_storm);
             newDescription += "Burza\n";
         }
         else if(description.contains("rain"))
