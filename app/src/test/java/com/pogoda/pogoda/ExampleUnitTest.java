@@ -1,4 +1,4 @@
-package com.example.pogoda;
+package com.pogoda.pogoda;
 
 import org.junit.Test;
 

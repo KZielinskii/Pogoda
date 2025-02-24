@@ -1,4 +1,4 @@
-package com.example.pogoda;
+package com.pogoda.pogoda;
 
 import android.content.Context;
 
