@@ -1,4 +1,4 @@
-package com.example.pogoda.Fragment;
+package com.pogoda.pogoda.Fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.pogoda.R;
+import com.pogoda.pogoda.R;
 
 public class WindFragment extends Fragment {
 

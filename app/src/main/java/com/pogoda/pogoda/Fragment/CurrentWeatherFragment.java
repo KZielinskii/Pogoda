@@ -1,4 +1,4 @@
-package com.example.pogoda.Fragment;
+package com.pogoda.pogoda.Fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.pogoda.Activity.MainActivity;
-import com.example.pogoda.Adapter.LocalitiesListAdapter;
-import com.example.pogoda.R;
-import com.example.pogoda.Window.SubstractLocalityWindow;
+import com.pogoda.pogoda.Activity.MainActivity;
+import com.pogoda.pogoda.Adapter.LocalitiesListAdapter;
+import com.pogoda.pogoda.R;
+import com.pogoda.pogoda.Window.SubstractLocalityWindow;
 
 public class CurrentWeatherFragment extends Fragment {
 

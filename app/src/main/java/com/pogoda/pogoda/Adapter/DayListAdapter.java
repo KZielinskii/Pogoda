@@ -1,4 +1,4 @@
-package com.example.pogoda.Adapter;
+package com.pogoda.pogoda.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,9 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.pogoda.Activity.MainActivity;
-import com.example.pogoda.Class.Day;
-import com.example.pogoda.R;
+import com.pogoda.pogoda.Activity.MainActivity;
+import com.pogoda.pogoda.Class.Day;
+import com.pogoda.pogoda.R;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

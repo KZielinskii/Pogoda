@@ -1,7 +1,7 @@
-package com.example.pogoda.Activity;
+package com.pogoda.pogoda.Activity;
 
-import static com.example.pogoda.Activity.MainActivity.localitiesListAdapter;
-import static com.example.pogoda.Class.Locality.FOR_SIZE;
+import static com.pogoda.pogoda.Activity.MainActivity.localitiesListAdapter;
+import static com.pogoda.pogoda.Class.Locality.FOR_SIZE;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,12 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.pogoda.Fragment.CurrentWeatherFragment;
-import com.example.pogoda.Fragment.DaysFragment;
-import com.example.pogoda.Class.Locality;
-import com.example.pogoda.R;
-import com.example.pogoda.Adapter.ViewPagerAdapter;
-import com.example.pogoda.Fragment.WindFragment;
+import com.pogoda.pogoda.Fragment.CurrentWeatherFragment;
+import com.pogoda.pogoda.Fragment.DaysFragment;
+import com.pogoda.pogoda.Class.Locality;
+import com.pogoda.pogoda.R;
+import com.pogoda.pogoda.Adapter.ViewPagerAdapter;
+import com.pogoda.pogoda.Fragment.WindFragment;
 
 public class WeatherForecastActivity extends AppCompatActivity{
     public static ViewPagerAdapter adapter;

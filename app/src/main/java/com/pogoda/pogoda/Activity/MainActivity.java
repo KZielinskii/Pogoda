@@ -1,7 +1,4 @@
-package com.example.pogoda.Activity;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+package com.pogoda.pogoda.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,18 +6,21 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pogoda.Window.AddLocalityWindow;
-import com.example.pogoda.Adapter.LocalitiesListAdapter;
-import com.example.pogoda.Class.Locality;
-import com.example.pogoda.R;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.pogoda.pogoda.Adapter.LocalitiesListAdapter;
+import com.pogoda.pogoda.Class.Locality;
+import com.pogoda.pogoda.R;
+import com.pogoda.pogoda.Window.AddLocalityWindow;
 
 import java.util.ArrayList;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.example.pogoda.Window;
+package com.pogoda.pogoda.Window;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,8 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.pogoda.Class.Locality;
-import com.example.pogoda.R;
+import com.pogoda.pogoda.Class.Locality;
+import com.pogoda.pogoda.R;
 
 import java.util.ArrayList;
 

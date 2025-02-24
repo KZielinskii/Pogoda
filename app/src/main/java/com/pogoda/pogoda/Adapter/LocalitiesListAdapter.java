@@ -1,4 +1,4 @@
-package com.example.pogoda.Adapter;
+package com.pogoda.pogoda.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,10 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
-import com.example.pogoda.Activity.MainActivity;
-import com.example.pogoda.Activity.WeatherForecastActivity;
-import com.example.pogoda.Class.Locality;
-import com.example.pogoda.R;
+import com.pogoda.pogoda.Activity.MainActivity;
+import com.pogoda.pogoda.Activity.WeatherForecastActivity;
+import com.pogoda.pogoda.Class.Locality;
+import com.pogoda.pogoda.R;
 
 import java.util.ArrayList;
 

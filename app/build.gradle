@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    namespace 'com.example.pogoda'
-    compileSdk 33
+    namespace 'com.pogoda.pogoda'
+    compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.pogoda"
+        applicationId "com.pogoda.pogoda"
         minSdk 30
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 

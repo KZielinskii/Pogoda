@@ -1,6 +1,6 @@
-package com.example.pogoda.Fragment;
+package com.pogoda.pogoda.Fragment;
 
-import static com.example.pogoda.Class.Locality.FOR_SIZE;
+import static com.pogoda.pogoda.Class.Locality.FOR_SIZE;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,9 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.pogoda.Class.Day;
-import com.example.pogoda.Adapter.DayListAdapter;
-import com.example.pogoda.R;
+import com.pogoda.pogoda.Class.Day;
+import com.pogoda.pogoda.Adapter.DayListAdapter;
+import com.pogoda.pogoda.R;
 
 import java.util.ArrayList;
 

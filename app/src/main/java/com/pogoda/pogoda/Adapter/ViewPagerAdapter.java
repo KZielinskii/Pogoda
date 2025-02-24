@@ -1,4 +1,4 @@
-package com.example.pogoda.Adapter;
+package com.pogoda.pogoda.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
